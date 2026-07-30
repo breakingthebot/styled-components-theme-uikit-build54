@@ -11,6 +11,7 @@ import { Card } from './components/Card/Card';
 import { Badge } from './components/Badge/Badge';
 import { Switch } from './components/Switch/Switch';
 import { Input } from './components/Input/Input';
+import { Modal } from './components/Modal/Modal';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -90,6 +91,7 @@ const Grid = styled.div`
 
 export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -102,7 +104,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.0.0 Release</Badge>
+              <Badge variant="success">v1.1.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -136,11 +138,25 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: THEME SWITCH SHOWCASE */}
+        {/* SECTION 2: MODAL DIALOG SHOWCASE (NEW v1.1.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Theme Switch Control (`Switch.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>Interactive Mode Toggle</Badge>
+            <SectionTitle>2. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.1.0</Badge>
+          </SectionHeader>
+
+          <Row>
+            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+              🪟 Open Accessible Modal Dialog
+            </Button>
+          </Row>
+        </Section>
+
+        {/* SECTION 3: THEME SWITCH SHOWCASE */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Theme Switch Control (`Switch.jsx`)</SectionTitle>
+            <Badge variant="neutral">Interactive Mode Toggle</Badge>
           </SectionHeader>
 
           <Row>
@@ -152,10 +168,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 3: CARD SHOWCASE */}
+        {/* SECTION 4: CARD SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Card Component (`Card.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Card Component (`Card.jsx`)</SectionTitle>
             <Badge variant="neutral">Surface Variants</Badge>
           </SectionHeader>
 
@@ -171,7 +187,7 @@ export function App() {
               </Card.Body>
               <Card.Footer>
                 <Button size="sm" variant="ghost">Dismiss</Button>
-                <Button size="sm" variant="primary">Inspect</Button>
+                <Button size="sm" variant="primary" onClick={() => setIsModalOpen(true)}>Inspect Modal</Button>
               </Card.Footer>
             </Card>
 
@@ -205,10 +221,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 4: BADGE SHOWCASE */}
+        {/* SECTION 5: BADGE SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
             <Badge variant="neutral">Status Colors</Badge>
           </SectionHeader>
 
@@ -221,10 +237,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 5: INPUT CONTROL */}
+        {/* SECTION 6: INPUT CONTROL */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Input Component (`Input.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Input Component (`Input.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Fields</Badge>
           </SectionHeader>
 
@@ -244,6 +260,25 @@ export function App() {
           </Grid>
         </Section>
       </AppContainer>
+
+      {/* DEMO MODAL DIALOG */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="🪟 Styled Components Modal Demo"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setIsModalOpen(false)}>
+              Confirm Action
+            </Button>
+          </>
+        }
+      >
+        <p>
+          This theme-aware modal dialog is built with <strong>styled-components</strong>. It features backdrop blur overlays, scale-up entrance keyframe animations, and keyboard <kbd style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: '4px' }}>ESC</kbd> dismissal.
+        </p>
+      </Modal>
     </ThemeProvider>
   );
 }
