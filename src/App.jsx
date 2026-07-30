@@ -12,6 +12,7 @@ import { Badge } from './components/Badge/Badge';
 import { Switch } from './components/Switch/Switch';
 import { Input } from './components/Input/Input';
 import { Modal } from './components/Modal/Modal';
+import { Tabs } from './components/Tabs/Tabs';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -95,6 +96,36 @@ export function App() {
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  const demoTabs = [
+    {
+      id: 'tab1',
+      label: 'System Metrics',
+      icon: '📊',
+      badge: <Badge variant="success" hasDot>99.99%</Badge>,
+      content: (
+        <p>Global CDN edge clusters operating at nominal latency across 14 edge locations.</p>
+      ),
+    },
+    {
+      id: 'tab2',
+      label: 'OAuth 2.0 Credentials',
+      icon: '🔐',
+      badge: <Badge variant="info">3 Keys</Badge>,
+      content: (
+        <p>Active secret API keys and OAuth 2.0 bearer access scopes for dev environment.</p>
+      ),
+    },
+    {
+      id: 'tab3',
+      label: 'Telemetry Vault Logs',
+      icon: '📜',
+      badge: <Badge variant="neutral">1.8TB</Badge>,
+      content: (
+        <p>Telemetry data retention set to 90 days with automated NVMe vault synchronization.</p>
+      ),
+    },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -104,7 +135,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.1.0 Release</Badge>
+              <Badge variant="success">v1.2.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -138,11 +169,35 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: MODAL DIALOG SHOWCASE (NEW v1.1.0) */}
+        {/* SECTION 2: TABS NAVIGATION (NEW v1.2.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.1.0</Badge>
+            <SectionTitle>2. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.2.0</Badge>
+          </SectionHeader>
+
+          <Grid>
+            <Card>
+              <Card.Header title="Underline Tabs Variant" subtitle="Default border indicator with badges" />
+              <Card.Body>
+                <Tabs tabs={demoTabs} variant="underline" />
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Segmented Tabs Variant" subtitle="Surface track container switcher" />
+              <Card.Body>
+                <Tabs tabs={demoTabs} variant="segmented" defaultActiveId="tab2" />
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: MODAL DIALOG SHOWCASE */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
           <Row>
@@ -152,10 +207,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 3: THEME SWITCH SHOWCASE */}
+        {/* SECTION 4: THEME SWITCH SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Theme Switch Control (`Switch.jsx`)</SectionTitle>
+            <SectionTitle>4. Theme Switch Control (`Switch.jsx`)</SectionTitle>
             <Badge variant="neutral">Interactive Mode Toggle</Badge>
           </SectionHeader>
 
@@ -168,10 +223,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 4: CARD SHOWCASE */}
+        {/* SECTION 5: CARD SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Card Component (`Card.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Card Component (`Card.jsx`)</SectionTitle>
             <Badge variant="neutral">Surface Variants</Badge>
           </SectionHeader>
 
@@ -221,10 +276,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 5: BADGE SHOWCASE */}
+        {/* SECTION 6: BADGE SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
             <Badge variant="neutral">Status Colors</Badge>
           </SectionHeader>
 
@@ -237,10 +292,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 6: INPUT CONTROL */}
+        {/* SECTION 7: INPUT CONTROL */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Styled Input Component (`Input.jsx`)</SectionTitle>
+            <SectionTitle>7. Styled Input Component (`Input.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Fields</Badge>
           </SectionHeader>
 
