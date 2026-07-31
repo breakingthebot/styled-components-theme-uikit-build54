@@ -16,6 +16,8 @@ import { Tabs } from './components/Tabs/Tabs';
 import { Progress } from './components/Progress/Progress';
 import { Skeleton } from './components/Skeleton/Skeleton';
 import { Avatar, AvatarGroup } from './components/Avatar/Avatar';
+import { Checkbox } from './components/Checkbox/Checkbox';
+import { Toggle } from './components/Toggle/Toggle';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -93,24 +95,16 @@ const Grid = styled.div`
   gap: 24px;
 `;
 
-const SkeletonProfileRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const SkeletonTextCol = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`;
-
 export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const [progressVal, setProgressVal] = useState(72);
+  const [check1, setCheck1] = useState(true);
+  const [check2, setCheck2] = useState(false);
+  const [toggle1, setToggle1] = useState(true);
+  const [toggle2, setToggle2] = useState(false);
+
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const demoTabs = [
@@ -143,7 +137,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.4.0 Release</Badge>
+              <Badge variant="success">v1.5.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -177,15 +171,70 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: AVATAR & AVATAR GROUP (NEW v1.4.0) */}
+        {/* SECTION 2: CHECKBOX & TOGGLE CONTROLS (NEW v1.5.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.4.0</Badge>
+            <SectionTitle>2. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.5.0</Badge>
           </SectionHeader>
 
           <Grid>
-            {/* Status Avatars */}
+            {/* Checkbox Group */}
+            <Card>
+              <Card.Header title="Styled Checkbox Group" subtitle="Custom checkmarks with active theme fills" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <Checkbox
+                    label="Enable Real-Time Cluster Auto-Scaling"
+                    checked={check1}
+                    onChange={setCheck1}
+                  />
+                  <Checkbox
+                    label="Stream Security Audit Telemetry to Vault"
+                    checked={check2}
+                    onChange={setCheck2}
+                  />
+                  <Checkbox
+                    label="Enforce OAuth 2.0 Strictly (Disabled)"
+                    checked={true}
+                    disabled
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+
+            {/* Toggle Switches */}
+            <Card>
+              <Card.Header title="Styled Toggle Switches" subtitle="Sliding track switches with label descriptions" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  <Toggle
+                    label="Automated CDN Edge Caching"
+                    description="Cache static assets across 14 edge locations"
+                    checked={toggle1}
+                    onChange={setToggle1}
+                  />
+
+                  <Toggle
+                    label="Slack Fatal Crash Alerts"
+                    description="Stream fatal 500 error stack traces to #ops-alerts"
+                    checked={toggle2}
+                    onChange={setToggle2}
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: AVATAR & AVATAR GROUP */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
+            <Badge variant="neutral">User Profiles</Badge>
+          </SectionHeader>
+
+          <Grid>
             <Card>
               <Card.Header title="User Avatar Badges" subtitle="Initials fallbacks and status indicator rings" />
               <Card.Body>
@@ -198,7 +247,6 @@ export function App() {
               </Card.Body>
             </Card>
 
-            {/* Avatar Group Stack */}
             <Card>
               <Card.Header title="Stacked Avatar Group" subtitle="Overlapping team stack with +N counter" />
               <Card.Body>
@@ -215,15 +263,14 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 3: PROGRESS & SKELETON */}
+        {/* SECTION 4: PROGRESS & SKELETON */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
             <Badge variant="neutral">Feedback System</Badge>
           </SectionHeader>
 
           <Grid>
-            {/* Progress Card */}
             <Card>
               <Card.Header
                 title="Progress Bar Indicators"
@@ -238,24 +285,14 @@ export function App() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <Progress label="CPU Allocation Capacity" value={progressVal} showValue variant="gradient" animated />
                   <Progress label="RAM Memory Load" value={84} showValue variant="warning" />
-                  <Progress label="NVMe Storage Capacity" value={45} showValue variant="brand" size="sm" />
                 </div>
               </Card.Body>
             </Card>
 
-            {/* Skeleton Loader Card */}
             <Card>
               <Card.Header title="Shimmer Skeleton Loader" subtitle="Theme-aware loading wave animation" />
               <Card.Body>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <SkeletonProfileRow>
-                    <Skeleton variant="circular" width={44} height={44} />
-                    <SkeletonTextCol>
-                      <Skeleton variant="text" width="60%" height={14} />
-                      <Skeleton variant="text" width="40%" height={10} />
-                    </SkeletonTextCol>
-                  </SkeletonProfileRow>
-
                   <Skeleton variant="rectangular" height={80} />
                   <Skeleton variant="text" count={2} />
                 </div>
@@ -264,10 +301,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 4: TABS NAVIGATION */}
+        {/* SECTION 5: TABS NAVIGATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
             <Badge variant="neutral">Navigation System</Badge>
           </SectionHeader>
 
@@ -281,10 +318,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 6: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
@@ -292,63 +329,6 @@ export function App() {
             <Button variant="primary" onClick={() => setIsModalOpen(true)}>
               🪟 Open Accessible Modal Dialog
             </Button>
-          </Row>
-        </Section>
-
-        {/* SECTION 6: THEME SWITCH SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>6. Theme Switch Control (`Switch.jsx`)</SectionTitle>
-            <Badge variant="neutral">Interactive Mode Toggle</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Switch
-              checked={isDarkMode}
-              onChange={setIsDarkMode}
-              label="Toggle System Theme Mode"
-            />
-          </Row>
-        </Section>
-
-        {/* SECTION 7: CARD SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>7. Styled Card Component (`Card.jsx`)</SectionTitle>
-            <Badge variant="neutral">Surface Variants</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card interactive variant="standard">
-              <Card.Header
-                title="Standard Surface Card"
-                subtitle="Theme-aware surface background &amp; border"
-                action={<Badge variant="success" hasDot>OPERATIONAL</Badge>}
-              />
-              <Card.Body>
-                This card adapts dynamically to theme background tokens (`theme.colors.surface`) with hover translation.
-              </Card.Body>
-              <Card.Footer>
-                <Button size="sm" variant="ghost">Dismiss</Button>
-                <Button size="sm" variant="primary" onClick={() => setIsModalOpen(true)}>Inspect Modal</Button>
-              </Card.Footer>
-            </Card>
-          </Grid>
-        </Section>
-
-        {/* SECTION 8: BADGE SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>8. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
-            <Badge variant="neutral">Status Colors</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Badge variant="success" hasDot isPulse>Success Status</Badge>
-            <Badge variant="warning" hasDot>Warning Alert</Badge>
-            <Badge variant="error" hasDot>Error Incident</Badge>
-            <Badge variant="info" hasDot isPulse>Info Stream</Badge>
-            <Badge variant="neutral">Neutral Tag</Badge>
           </Row>
         </Section>
       </AppContainer>
