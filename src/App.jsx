@@ -27,6 +27,7 @@ import { Breadcrumb } from './components/Breadcrumb/Breadcrumb';
 import { Drawer } from './components/Drawer/Drawer';
 import { Table } from './components/Table/Table';
 import { SegmentedControl } from './components/SegmentedControl/SegmentedControl';
+import { Popover } from './components/Popover/Popover';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -109,23 +110,9 @@ export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
-  const [viewMode, setViewMode] = useState('grid');
-  const [timeframe, setTimeframe] = useState('7d');
+  const [sliderVal, setSliderVal] = useState(65);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
-
-  const viewOptions = [
-    { value: 'grid', label: 'Grid View', icon: '🎛️' },
-    { value: 'list', label: 'List View', icon: '📋' },
-    { value: 'kanban', label: 'Kanban Board', icon: '📊' },
-  ];
-
-  const timeframeOptions = [
-    { value: '24h', label: '24 Hours' },
-    { value: '7d', label: '7 Days' },
-    { value: '30d', label: '30 Days' },
-    { value: '1y', label: '1 Year' },
-  ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,7 +123,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.4.0 Release</Badge>
+              <Badge variant="success">v2.5.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -169,39 +156,33 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: SEGMENTED CONTROL SWITCHER (NEW v2.4.0) */}
+        {/* SECTION 2: POPOVER FLOATING PANEL (NEW v2.5.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Segmented Control Switcher (`SegmentedControl.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.4.0</Badge>
+            <SectionTitle>2. Styled Popover Floating Panel (`Popover.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.5.0</Badge>
           </SectionHeader>
 
-          <Grid>
-            <Card>
-              <Card.Header title="View Mode Switcher" subtitle="Compact horizontal view switcher with icons" />
-              <Card.Body>
-                <SegmentedControl
-                  options={viewOptions}
-                  value={viewMode}
-                  onChange={setViewMode}
-                  fullWidth
-                />
-              </Card.Body>
-            </Card>
+          <Row>
+            <Popover
+              title="🔐 Secret API Key Vault"
+              position="bottomLeft"
+              trigger={<Button variant="outline">Popover Bottom Left</Button>}
+            >
+              <p style={{ marginBottom: '12px' }}>
+                Bearer tokens are encrypted with AES-256-GCM.
+              </p>
+              <Button size="sm" variant="primary">Rotate Secret Key</Button>
+            </Popover>
 
-            <Card>
-              <Card.Header title="Telemetry Timeframe Filter" subtitle="Small size segmented control chips" />
-              <Card.Body>
-                <SegmentedControl
-                  options={timeframeOptions}
-                  value={timeframe}
-                  onChange={setTimeframe}
-                  size="sm"
-                  fullWidth
-                />
-              </Card.Body>
-            </Card>
-          </Grid>
+            <Popover
+              title="⚙️ Node Diagnostics"
+              position="bottomRight"
+              trigger={<Button variant="outline">Popover Bottom Right</Button>}
+            >
+              <p>Worker node ip-10-0-4-12 is operating at 12ms latency.</p>
+            </Popover>
+          </Row>
         </Section>
 
         {/* SECTION 3: DRAWER PANEL */}
