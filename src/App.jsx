@@ -18,6 +18,7 @@ import { Skeleton } from './components/Skeleton/Skeleton';
 import { Avatar, AvatarGroup } from './components/Avatar/Avatar';
 import { Checkbox } from './components/Checkbox/Checkbox';
 import { Toggle } from './components/Toggle/Toggle';
+import { Tooltip } from './components/Tooltip/Tooltip';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -137,7 +138,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.5.0 Release</Badge>
+              <Badge variant="success">v1.6.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -162,20 +163,55 @@ export function App() {
           </SectionHeader>
 
           <Row>
-            <Button variant="primary">Primary CTA</Button>
-            <Button variant="secondary">Secondary Button</Button>
-            <Button variant="danger">Danger Action</Button>
+            <Tooltip content="Primary CTA button with linear brand fill" position="top">
+              <Button variant="primary">Primary CTA</Button>
+            </Tooltip>
+
+            <Tooltip content="Secondary surface button with subtle border" position="top">
+              <Button variant="secondary">Secondary Button</Button>
+            </Tooltip>
+
+            <Tooltip content="⚠️ Irreversible dangerous action trigger" position="top">
+              <Button variant="danger">Danger Action</Button>
+            </Tooltip>
+
             <Button variant="outline">Outline Button</Button>
             <Button variant="ghost">Ghost Button</Button>
             <Button variant="primary" isLoading>Loading State</Button>
           </Row>
         </Section>
 
-        {/* SECTION 2: CHECKBOX & TOGGLE CONTROLS (NEW v1.5.0) */}
+        {/* SECTION 2: TOOLTIP HOVER POPUP (NEW v1.6.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.5.0</Badge>
+            <SectionTitle>2. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.6.0</Badge>
+          </SectionHeader>
+
+          <Row>
+            <Tooltip content="Top positioned directional tooltip" position="top">
+              <Button variant="outline">Hover Top</Button>
+            </Tooltip>
+
+            <Tooltip content="Bottom positioned directional tooltip" position="bottom">
+              <Button variant="outline">Hover Bottom</Button>
+            </Tooltip>
+
+            <Tooltip content="Left positioned directional tooltip" position="left">
+              <Button variant="outline">Hover Left</Button>
+            </Tooltip>
+
+            <Tooltip content="Right positioned directional tooltip" position="right">
+              <Button variant="outline">Hover Right</Button>
+            </Tooltip>
+          </Row>
+        </Section>
+
+        {/* SECTION 3: CHECKBOX & TOGGLE CONTROLS */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
+            <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
           <Grid>
@@ -193,11 +229,6 @@ export function App() {
                     label="Stream Security Audit Telemetry to Vault"
                     checked={check2}
                     onChange={setCheck2}
-                  />
-                  <Checkbox
-                    label="Enforce OAuth 2.0 Strictly (Disabled)"
-                    checked={true}
-                    disabled
                   />
                 </div>
               </Card.Body>
@@ -227,10 +258,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 3: AVATAR & AVATAR GROUP */}
+        {/* SECTION 4: AVATAR & AVATAR GROUP */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
             <Badge variant="neutral">User Profiles</Badge>
           </SectionHeader>
 
@@ -239,10 +270,12 @@ export function App() {
               <Card.Header title="User Avatar Badges" subtitle="Initials fallbacks and status indicator rings" />
               <Card.Body>
                 <Row>
-                  <Avatar name="Jane Doe" size="lg" status="online" />
-                  <Avatar name="Alex Smith" size="lg" status="busy" />
-                  <Avatar name="Charlie Brown" size="lg" status="away" />
-                  <Avatar name="David Lee" size="lg" status="offline" />
+                  <Tooltip content="Jane Doe (Online)" position="top">
+                    <Avatar name="Jane Doe" size="lg" status="online" />
+                  </Tooltip>
+                  <Tooltip content="Alex Smith (Busy)" position="top">
+                    <Avatar name="Alex Smith" size="lg" status="busy" />
+                  </Tooltip>
                 </Row>
               </Card.Body>
             </Card>
@@ -256,17 +289,16 @@ export function App() {
                   <Avatar name="Charlie Brown" status="away" />
                   <Avatar name="David Lee" status="offline" />
                   <Avatar name="Eva Martinez" />
-                  <Avatar name="Frank Miller" />
                 </AvatarGroup>
               </Card.Body>
             </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 4: PROGRESS & SKELETON */}
+        {/* SECTION 5: PROGRESS & SKELETON */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
             <Badge variant="neutral">Feedback System</Badge>
           </SectionHeader>
 
@@ -301,10 +333,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 5: TABS NAVIGATION */}
+        {/* SECTION 6: TABS NAVIGATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
             <Badge variant="neutral">Navigation System</Badge>
           </SectionHeader>
 
@@ -318,10 +350,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 6: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 7: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>7. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 

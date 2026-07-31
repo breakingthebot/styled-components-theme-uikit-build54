@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-07-30
+
+### Added
+- Integrated **Styled Tooltip Hover Popup Component (`Tooltip.jsx`)**.
+- Added theme-aware directional tooltips (`top`, `bottom`, `left`, `right`) with callout arrows and scale/fade entrance keyframe animations.
+
 ## [1.5.0] - 2026-07-30
 
 ### Added
 - Integrated **Styled Checkbox & Toggle Switch Controls Component (`Checkbox.jsx`, `Toggle.jsx`)**.
-- Added custom checkmark checkboxes with active brand fills and sliding track switches with title/description label containers.
 
 ## [1.4.0] - 2026-07-30
 
