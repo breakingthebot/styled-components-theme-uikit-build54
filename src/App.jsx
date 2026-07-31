@@ -21,6 +21,7 @@ import { Toggle } from './components/Toggle/Toggle';
 import { Tooltip } from './components/Tooltip/Tooltip';
 import { Accordion } from './components/Accordion/Accordion';
 import { Select } from './components/Select/Select';
+import { Alert } from './components/Alert/Alert';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -104,10 +105,7 @@ export function App() {
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const [selectedCluster, setSelectedCluster] = useState('us-east-1');
   const [progressVal, setProgressVal] = useState(72);
-  const [check1, setCheck1] = useState(true);
-  const [check2, setCheck2] = useState(false);
-  const [toggle1, setToggle1] = useState(true);
-  const [toggle2, setToggle2] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -115,41 +113,6 @@ export function App() {
     { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
     { value: 'eu-west-1', label: 'EU West (Ireland)', icon: '🇪🇺' },
     { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)', icon: '🇸🇬' },
-    { value: 'sa-east-1', label: 'South America (São Paulo)', icon: '🇧🇷', disabled: true },
-  ];
-
-  const faqItems = [
-    {
-      title: 'How do Styled Components inject themes at runtime?',
-      icon: '🎨',
-      content: 'Styled Components provides a <ThemeProvider> wrapper that injects active theme tokens into styled element interpolation functions via props (e.g. ${({ theme }) => theme.colors.primary}).',
-    },
-    {
-      title: 'Is CSS-in-JS zero-runtime compatible with Next.js App Router?',
-      icon: '⚡',
-      content: 'Styled Components 6+ supports SSR registry streaming for Next.js App Router, extracting CSS rules server-side before flushing HTML to the browser client.',
-    },
-  ];
-
-  const demoTabs = [
-    {
-      id: 'tab1',
-      label: 'System Metrics',
-      icon: '📊',
-      badge: <Badge variant="success" hasDot>99.99%</Badge>,
-      content: (
-        <p>Global CDN edge clusters operating at nominal latency across 14 edge locations.</p>
-      ),
-    },
-    {
-      id: 'tab2',
-      label: 'OAuth 2.0 Credentials',
-      icon: '🔐',
-      badge: <Badge variant="info">3 Keys</Badge>,
-      content: (
-        <p>Active secret API keys and OAuth 2.0 bearer access scopes for dev environment.</p>
-      ),
-    },
   ];
 
   return (
@@ -161,7 +124,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.8.0 Release</Badge>
+              <Badge variant="success">v1.9.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -204,11 +167,43 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: DROPDOWN SELECT MENU (NEW v1.8.0) */}
+        {/* SECTION 2: ALERT CALLOUT BANNERS (NEW v1.9.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.8.0</Badge>
+            <SectionTitle>2. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.9.0</Badge>
+          </SectionHeader>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {showAlert && (
+              <Alert
+                variant="info"
+                title="System Maintenance Window Scheduled"
+                onClose={() => setShowAlert(false)}
+              >
+                Automated database index re-indexing scheduled for Saturday 02:00 UTC. Zero downtime expected.
+              </Alert>
+            )}
+
+            <Alert variant="success" title="Cluster Deployment Complete">
+              Region <strong>us-east-1</strong> updated to v1.9.0 release with 100% health check pass rate.
+            </Alert>
+
+            <Alert variant="warning" title="Memory Load Warning">
+              RAM utilization reached 84% on worker node ip-10-0-4-12. Auto-scaling trigger armed.
+            </Alert>
+
+            <Alert variant="danger" title="TLS Certificate Expiration">
+              SSL certificate for <code>*.acme.internal</code> expires in 48 hours. Please renew in Vault.
+            </Alert>
+          </div>
+        </Section>
+
+        {/* SECTION 3: DROPDOWN SELECT MENU */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
+            <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
           <Grid>
@@ -224,37 +219,7 @@ export function App() {
                 />
               </Card.Body>
             </Card>
-
-            <Card>
-              <Card.Header title="Form Control Group" subtitle="Combined input &amp; region dropdown" />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <Input
-                    label="Endpoint Hostname"
-                    addon="https://"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                  />
-                  <Select
-                    label="Active Replica"
-                    options={clusterOptions}
-                    value={selectedCluster}
-                    onChange={setSelectedCluster}
-                  />
-                </div>
-              </Card.Body>
-            </Card>
           </Grid>
-        </Section>
-
-        {/* SECTION 3: ACCORDION FAQ */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>3. Styled Accordion FAQ Component (`Accordion.jsx`)</SectionTitle>
-            <Badge variant="neutral">Disclosure Panels</Badge>
-          </SectionHeader>
-
-          <Accordion items={faqItems} />
         </Section>
 
         {/* SECTION 4: TOOLTIP HOVER POPUP */}
@@ -275,52 +240,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 5: CHECKBOX & TOGGLE CONTROLS */}
+        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
-            <Badge variant="neutral">Form Controls</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header title="Styled Checkbox Group" subtitle="Custom checkmarks with active theme fills" />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <Checkbox
-                    label="Enable Real-Time Cluster Auto-Scaling"
-                    checked={check1}
-                    onChange={setCheck1}
-                  />
-                  <Checkbox
-                    label="Stream Security Audit Telemetry to Vault"
-                    checked={check2}
-                    onChange={setCheck2}
-                  />
-                </div>
-              </Card.Body>
-            </Card>
-
-            <Card>
-              <Card.Header title="Styled Toggle Switches" subtitle="Sliding track switches with label descriptions" />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                  <Toggle
-                    label="Automated CDN Edge Caching"
-                    description="Cache static assets across 14 edge locations"
-                    checked={toggle1}
-                    onChange={setToggle1}
-                  />
-                </div>
-              </Card.Body>
-            </Card>
-          </Grid>
-        </Section>
-
-        {/* SECTION 6: MODAL DIALOG SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>6. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
