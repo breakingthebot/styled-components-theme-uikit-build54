@@ -19,6 +19,7 @@ import { Avatar, AvatarGroup } from './components/Avatar/Avatar';
 import { Checkbox } from './components/Checkbox/Checkbox';
 import { Toggle } from './components/Toggle/Toggle';
 import { Tooltip } from './components/Tooltip/Tooltip';
+import { Accordion } from './components/Accordion/Accordion';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -108,6 +109,24 @@ export function App() {
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  const faqItems = [
+    {
+      title: 'How do Styled Components inject themes at runtime?',
+      icon: '🎨',
+      content: 'Styled Components provides a <ThemeProvider> wrapper that injects active theme tokens into styled element interpolation functions via props (e.g. ${({ theme }) => theme.colors.primary}).',
+    },
+    {
+      title: 'Is CSS-in-JS zero-runtime compatible with Next.js App Router?',
+      icon: '⚡',
+      content: 'Styled Components 6+ supports SSR registry streaming for Next.js App Router, extracting CSS rules server-side before flushing HTML to the browser client.',
+    },
+    {
+      title: 'How are global scope style collisions avoided in Styled Components?',
+      icon: '🛡️',
+      content: 'Styled Components generates unique hash prefixes (e.g. sc-bczRLJ) for every component class name, guaranteeing 100% style isolation across large modular frontend architectures.',
+    },
+  ];
+
   const demoTabs = [
     {
       id: 'tab1',
@@ -138,7 +157,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.6.0 Release</Badge>
+              <Badge variant="success">v1.7.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -181,11 +200,21 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: TOOLTIP HOVER POPUP (NEW v1.6.0) */}
+        {/* SECTION 2: ACCORDION FAQ (NEW v1.7.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.6.0</Badge>
+            <SectionTitle>2. Styled Accordion FAQ Component (`Accordion.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.7.0</Badge>
+          </SectionHeader>
+
+          <Accordion items={faqItems} />
+        </Section>
+
+        {/* SECTION 3: TOOLTIP HOVER POPUP */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
+            <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
           <Row>
@@ -207,10 +236,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 3: CHECKBOX & TOGGLE CONTROLS */}
+        {/* SECTION 4: CHECKBOX & TOGGLE CONTROLS */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
@@ -258,10 +287,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 4: AVATAR & AVATAR GROUP */}
+        {/* SECTION 5: AVATAR & AVATAR GROUP */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
             <Badge variant="neutral">User Profiles</Badge>
           </SectionHeader>
 
@@ -295,10 +324,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 5: PROGRESS & SKELETON */}
+        {/* SECTION 6: PROGRESS & SKELETON */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
             <Badge variant="neutral">Feedback System</Badge>
           </SectionHeader>
 
@@ -333,10 +362,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 6: TABS NAVIGATION */}
+        {/* SECTION 7: TABS NAVIGATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <SectionTitle>7. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
             <Badge variant="neutral">Navigation System</Badge>
           </SectionHeader>
 
@@ -350,10 +379,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 7: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 8: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>7. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>8. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
