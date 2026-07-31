@@ -25,6 +25,7 @@ import { Alert } from './components/Alert/Alert';
 import { Slider } from './components/Slider/Slider';
 import { Breadcrumb } from './components/Breadcrumb/Breadcrumb';
 import { Drawer } from './components/Drawer/Drawer';
+import { Table } from './components/Table/Table';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -107,15 +108,34 @@ export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
-  const [selectedCluster, setSelectedCluster] = useState('us-east-1');
   const [sliderVal, setSliderVal] = useState(65);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
-  const breadcrumbItems1 = [
-    { label: 'Infrastructure', icon: '☁️', href: '#' },
-    { label: 'Cluster Regions', icon: '🌐', href: '#' },
-    { label: 'us-east-1', icon: '🇺🇸', href: '#' },
+  const tableColumns = [
+    { key: 'id', label: 'Cluster ID', sortable: true },
+    { key: 'region', label: 'Region', sortable: true },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      render: (val) => (
+        <Badge variant={val === 'Operational' ? 'success' : 'warning'} hasDot>
+          {val}
+        </Badge>
+      ),
+    },
+    { key: 'uptime', label: 'SLA Uptime', sortable: true },
+    { key: 'latency', label: 'Avg Latency', sortable: true },
+  ];
+
+  const tableData = [
+    { id: 'use1-a', region: 'us-east-1a (N. Virginia)', status: 'Operational', uptime: '99.99%', latency: '12ms' },
+    { id: 'use1-b', region: 'us-east-1b (N. Virginia)', status: 'Operational', uptime: '99.98%', latency: '14ms' },
+    { id: 'euw1-a', region: 'eu-west-1a (Ireland)', status: 'Operational', uptime: '99.95%', latency: '28ms' },
+    { id: 'euw1-b', region: 'eu-west-1b (Ireland)', status: 'Degraded', uptime: '98.50%', latency: '82ms' },
+    { id: 'aps1-a', region: 'ap-southeast-1a (Singapore)', status: 'Operational', uptime: '99.99%', latency: '42ms' },
+    { id: 'sae1-a', region: 'sa-east-1a (São Paulo)', status: 'Operational', uptime: '99.91%', latency: '64ms' },
   ];
 
   return (
@@ -127,7 +147,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.2.0 Release</Badge>
+              <Badge variant="success">v2.3.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -152,28 +172,34 @@ export function App() {
           </SectionHeader>
 
           <Row>
-            <Tooltip content="Primary CTA button with linear brand fill" position="top">
-              <Button variant="primary">Primary CTA</Button>
-            </Tooltip>
-
-            <Tooltip content="Secondary surface button with subtle border" position="top">
-              <Button variant="secondary">Secondary Button</Button>
-            </Tooltip>
-
-            <Tooltip content="⚠️ Irreversible dangerous action trigger" position="top">
-              <Button variant="danger">Danger Action</Button>
-            </Tooltip>
-
+            <Button variant="primary">Primary CTA</Button>
+            <Button variant="secondary">Secondary Button</Button>
+            <Button variant="danger">Danger Action</Button>
             <Button variant="outline">Outline Button</Button>
             <Button variant="ghost">Ghost Button</Button>
           </Row>
         </Section>
 
-        {/* SECTION 2: DRAWER PANEL (NEW v2.2.0) */}
+        {/* SECTION 2: DATA TABLE & PAGINATION (NEW v2.3.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.2.0</Badge>
+            <SectionTitle>2. Styled Data Table &amp; Pagination (`Table.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.3.0</Badge>
+          </SectionHeader>
+
+          <Card>
+            <Card.Header title="Cluster Telemetry Node Matrix" subtitle="Sortable headers &amp; page navigation controls" />
+            <Card.Body>
+              <Table columns={tableColumns} data={tableData} pageSize={4} />
+            </Card.Body>
+          </Card>
+        </Section>
+
+        {/* SECTION 3: DRAWER PANEL */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
+            <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
           <Row>
@@ -181,21 +207,6 @@ export function App() {
               📂 Open Cluster Configuration Drawer
             </Button>
           </Row>
-        </Section>
-
-        {/* SECTION 3: BREADCRUMB NAVIGATION */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>3. Styled Breadcrumb Navigation Trail (`Breadcrumb.jsx`)</SectionTitle>
-            <Badge variant="neutral">Navigation System</Badge>
-          </SectionHeader>
-
-          <Card>
-            <Card.Header title="Icon Breadcrumb Path" subtitle="Hierarchical navigation path with icon badges" />
-            <Card.Body>
-              <Breadcrumb items={breadcrumbItems1} separator="›" />
-            </Card.Body>
-          </Card>
         </Section>
 
         {/* SECTION 4: SLIDER RANGE CONTROL */}
@@ -218,20 +229,6 @@ export function App() {
               </Card.Body>
             </Card>
           </Grid>
-        </Section>
-
-        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
-            <Badge variant="neutral">Overlay System</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              🪟 Open Accessible Modal Dialog
-            </Button>
-          </Row>
         </Section>
       </AppContainer>
 
