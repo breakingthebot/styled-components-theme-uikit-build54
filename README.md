@@ -4,7 +4,7 @@
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/breakingthebot/styled-components-theme-uikit-build54)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Styled Components](https://img.shields.io/badge/Styled--Components-CSS--in--JS-DB7093?style=for-the-badge&logo=styledcomponents)](https://styled-components.com)
-[![Release](https://img.shields.io/badge/Release-v1.9.0-indigo?style=for-the-badge)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/Release-v2.0.0-indigo?style=for-the-badge)](CHANGELOG.md)
 
 ---
 
@@ -12,7 +12,7 @@
 
 **Styled Components UI Kit (Build 54)** is a standalone, production-grade **React UI Component Library** engineered using **styled-components (CSS-in-JS)** to demonstrate real-time Light/Dark theme switching, dynamic prop-based styling, and 100% component style encapsulation. 
 
-Featuring 17 theme-aware components (`Button`, `Alert`, `Select`, `Accordion`, `Tooltip`, `Checkbox`, `Toggle`, `Avatar`, `AvatarGroup`, `Progress`, `Skeleton`, `Tabs`, `Modal`, `Card`, `Badge`, `Switch`, `Input`), this UI kit allows developers to pass custom themes via `<ThemeProvider>` while dynamically computing surface colors, backdrop filters, and text contrast.
+Featuring 18 theme-aware components (`Button`, `Slider`, `Alert`, `Select`, `Accordion`, `Tooltip`, `Checkbox`, `Toggle`, `Avatar`, `AvatarGroup`, `Progress`, `Skeleton`, `Tabs`, `Modal`, `Card`, `Badge`, `Switch`, `Input`), this UI kit allows developers to pass custom themes via `<ThemeProvider>` while dynamically computing surface colors, backdrop filters, and text contrast.
 
 ### 🌐 Live Production & Repository Links
 - **Live Vercel Application**: [https://styled-components-theme-uikit-build54.vercel.app](https://styled-components-theme-uikit-build54.vercel.app)
@@ -28,6 +28,7 @@ Build_54/
 ├── src/
 │   ├── components/
 │   │   ├── Button/           # Button.jsx
+│   │   ├── Slider/           # Slider.jsx
 │   │   ├── Alert/            # Alert.jsx
 │   │   ├── Select/           # Select.jsx
 │   │   ├── Accordion/        # Accordion.jsx
@@ -65,35 +66,37 @@ Build_54/
 
 1. **🔘 Styled Button (`Button.jsx`)**:
    - Primary, secondary, danger, outline, and ghost style variants with loading spinner, size props (`sm`, `md`, `lg`), and `fullWidth` toggle.
-2. **🔔 Styled Alert Banner (`Alert.jsx`)**:
+2. **🎛️ Styled Slider Range Control (`Slider.jsx`)**:
+   - Custom range input slider with dynamic gradient track percentage fills, hover thumb handles with focus halos, live value badges, and custom unit labels.
+3. **🔔 Styled Alert Banner (`Alert.jsx`)**:
    - Contextual inline alert callouts (`info`, `success`, `warning`, `danger`) with left accent borders, status icons (`ℹ️`, `✅`, `⚠️`, `🚨`), and dismiss triggers.
-3. **📇 Styled Dropdown Select (`Select.jsx`)**:
+4. **📇 Styled Dropdown Select (`Select.jsx`)**:
    - Custom select dropdown with item icons, selected checkmark indicators (`✓`), disabled states, click-outside dismissal, and rotating chevron animations (`rotate(180deg)`).
-4. **🗂️ Styled Accordion FAQ (`Accordion.jsx`)**:
+5. **🗂️ Styled Accordion FAQ (`Accordion.jsx`)**:
    - Smooth expandable disclosure FAQ panels with CSS grid height transitions and rotating chevron indicators (`rotate(180deg)`).
-5. **🪟 Styled Tooltip (`Tooltip.jsx`)**:
+6. **🪟 Styled Tooltip (`Tooltip.jsx`)**:
    - Directional callout tooltips (`top`, `bottom`, `left`, `right`) with arrow indicators and scale/fade entrance animations.
-6. **☑️ Styled Checkbox (`Checkbox.jsx`)**:
+7. **☑️ Styled Checkbox (`Checkbox.jsx`)**:
    - Custom checkmark square input box with active theme brand fills, focus ring halos, and disabled states.
-7. **🎛️ Styled Toggle Switch (`Toggle.jsx`)**:
+8. **🎛️ Styled Toggle Switch (`Toggle.jsx`)**:
    - Sliding track switch with theme brand track fills, smooth thumb sliding animations, and title/description label text.
-8. **🖼️ Styled Avatar & Avatar Group (`Avatar.jsx`)**:
+9. **🖼️ Styled Avatar & Avatar Group (`Avatar.jsx`)**:
    - User avatar badges with initials fallbacks, status indicator rings (`online`, `busy`, `away`, `offline`), and stacked avatar group overlaps with `+N` remaining counter.
-9. **📊 Styled Progress Bar (`Progress.jsx`)**:
+10. **📊 Styled Progress Bar (`Progress.jsx`)**:
    - Linear progress indicators with percentage labels, gradient fills, and animated shine overlays.
-10. **💀 Styled Skeleton Loader (`Skeleton.jsx`)**:
+11. **💀 Styled Skeleton Loader (`Skeleton.jsx`)**:
    - Shimmer wave placeholder elements for text, circular avatars, rectangular cards, and image blocks.
-11. **📇 Styled Tabs Navigation (`Tabs.jsx`)**:
+12. **📇 Styled Tabs Navigation (`Tabs.jsx`)**:
    - Underline, pills, and segmented tab switcher variants with active indicator bars, icons, and badge support.
-12. **🪟 Styled Modal Overlay (`Modal.jsx`)**:
+13. **🪟 Styled Modal Overlay (`Modal.jsx`)**:
    - Accessible theme-aware modal dialog with backdrop blur overlays, scale-up entrance keyframe animations, size variants (`sm`, `md`, `lg`), and keyboard `ESC` dismissal.
-13. **🃏 Styled Card (`Card.jsx`)**:
+14. **🃏 Styled Card (`Card.jsx`)**:
    - Standard, glassmorphism, and gradient background variants with composable sub-components (`Card.Header`, `Card.Body`, `Card.Footer`).
-14. **🏷️ Styled Badge Pill (`Badge.jsx`)**:
+15. **🏷️ Styled Badge Pill (`Badge.jsx`)**:
    - Status color pills (`success`, `warning`, `danger`, `info`, `neutral`) with animated pulse dot indicators.
-15. **🌙 Styled Theme Switch (`Switch.jsx`)**:
+16. **🌙 Styled Theme Switch (`Switch.jsx`)**:
    - Interactive sliding track switch for real-time Light/Dark theme switching.
-16. **📝 Styled Form Input (`Input.jsx`)**:
+17. **📝 Styled Form Input (`Input.jsx`)**:
    - Text inputs with URL addon prepends, validation error borders, and helper text.
 
 ---

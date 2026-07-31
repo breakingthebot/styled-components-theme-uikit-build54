@@ -22,6 +22,7 @@ import { Tooltip } from './components/Tooltip/Tooltip';
 import { Accordion } from './components/Accordion/Accordion';
 import { Select } from './components/Select/Select';
 import { Alert } from './components/Alert/Alert';
+import { Slider } from './components/Slider/Slider';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -105,7 +106,8 @@ export function App() {
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const [selectedCluster, setSelectedCluster] = useState('us-east-1');
   const [progressVal, setProgressVal] = useState(72);
-  const [showAlert, setShowAlert] = useState(true);
+  const [sliderVal, setSliderVal] = useState(65);
+  const [concurrencyVal, setConcurrencyVal] = useState(16);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -124,7 +126,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.9.0 Release</Badge>
+              <Badge variant="success">v2.0.0 Milestone Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -167,42 +169,77 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: ALERT CALLOUT BANNERS (NEW v1.9.0) */}
+        {/* SECTION 2: SLIDER RANGE CONTROL (NEW v2.0.0 MILESTONE) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.9.0</Badge>
+            <SectionTitle>2. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>MILESTONE v2.0.0</Badge>
           </SectionHeader>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {showAlert && (
-              <Alert
-                variant="info"
-                title="System Maintenance Window Scheduled"
-                onClose={() => setShowAlert(false)}
-              >
-                Automated database index re-indexing scheduled for Saturday 02:00 UTC. Zero downtime expected.
-              </Alert>
-            )}
+          <Grid>
+            <Card>
+              <Card.Header title="System Resource Allocation" subtitle="Interactive slider range controls with dynamic fills" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <Slider
+                    label="CPU Core Allocation Capacity"
+                    value={sliderVal}
+                    onChange={setSliderVal}
+                    unit="%"
+                  />
 
-            <Alert variant="success" title="Cluster Deployment Complete">
-              Region <strong>us-east-1</strong> updated to v1.9.0 release with 100% health check pass rate.
-            </Alert>
+                  <Slider
+                    label="Max Worker Thread Concurrency"
+                    value={concurrencyVal}
+                    onChange={setConcurrencyVal}
+                    min={1}
+                    max={64}
+                    unit=" Threads"
+                  />
+                </div>
+              </Card.Body>
+            </Card>
 
-            <Alert variant="warning" title="Memory Load Warning">
-              RAM utilization reached 84% on worker node ip-10-0-4-12. Auto-scaling trigger armed.
-            </Alert>
+            <Card>
+              <Card.Header title="Linked Feedback Binding" subtitle="Slider controls driving Progress indicator fills" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Progress
+                    label="Active Cluster Load"
+                    value={sliderVal}
+                    showValue
+                    variant="gradient"
+                    animated
+                  />
 
-            <Alert variant="danger" title="TLS Certificate Expiration">
-              SSL certificate for <code>*.acme.internal</code> expires in 48 hours. Please renew in Vault.
-            </Alert>
-          </div>
+                  <Slider
+                    label="Drag to Adjust Cluster Load"
+                    value={sliderVal}
+                    onChange={setSliderVal}
+                    unit="%"
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
         </Section>
 
-        {/* SECTION 3: DROPDOWN SELECT MENU */}
+        {/* SECTION 3: ALERT CALLOUT BANNERS */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
+            <SectionTitle>3. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
+            <Badge variant="neutral">Notification System</Badge>
+          </SectionHeader>
+
+          <Alert variant="info" title="System Maintenance Window Scheduled">
+            Automated database index re-indexing scheduled for Saturday 02:00 UTC. Zero downtime expected.
+          </Alert>
+        </Section>
+
+        {/* SECTION 4: DROPDOWN SELECT MENU */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>4. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
@@ -220,24 +257,6 @@ export function App() {
               </Card.Body>
             </Card>
           </Grid>
-        </Section>
-
-        {/* SECTION 4: TOOLTIP HOVER POPUP */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>4. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
-            <Badge variant="neutral">Overlay System</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Tooltip content="Top positioned directional tooltip" position="top">
-              <Button variant="outline">Hover Top</Button>
-            </Tooltip>
-
-            <Tooltip content="Bottom positioned directional tooltip" position="bottom">
-              <Button variant="outline">Hover Bottom</Button>
-            </Tooltip>
-          </Row>
         </Section>
 
         {/* SECTION 5: MODAL DIALOG SHOWCASE */}
