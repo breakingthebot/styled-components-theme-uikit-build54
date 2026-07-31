@@ -2,7 +2,7 @@
 // Main Interactive Playground for Build 54: Theme-able UI Kit with Styled Components.
 // Created: 2026-07-30
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -29,6 +29,7 @@ import { Table } from './components/Table/Table';
 import { SegmentedControl } from './components/SegmentedControl/SegmentedControl';
 import { Popover } from './components/Popover/Popover';
 import { Toast } from './components/Toast/Toast';
+import { CommandPalette } from './components/CommandPalette/CommandPalette';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -110,12 +111,30 @@ export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
-  const [toasts, setToasts] = useState([
-    { id: 1, title: 'Cluster Deployment Succeeded', message: 'Region us-east-1 deployed with 100% health.', variant: 'success' },
-  ]);
+  const [toasts, setToasts] = useState([]);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const commandsList = [
+    { id: 1, category: 'Theme Control', label: 'Toggle Light/Dark Theme', icon: '🌙', shortcut: '⌘T', action: () => setIsDarkMode((d) => !d) },
+    { id: 2, category: 'Navigation', label: 'Open Cluster Configuration Drawer', icon: '📂', shortcut: '⌘D', action: () => setIsDrawerOpen(true) },
+    { id: 3, category: 'Navigation', label: 'Open Demo Modal Dialog', icon: '🪟', shortcut: '⌘M', action: () => setIsModalOpen(true) },
+    { id: 4, category: 'Actions', label: 'Trigger Success Toast Notification', icon: '✅', action: () => addToast('success', 'Command Executed', 'Action executed via Command Palette.') },
+    { id: 5, category: 'Actions', label: 'Rotate Cluster AES Secret Keys', icon: '🔑', action: () => addToast('warning', 'Security Alert', 'AES keys rotation initiated.') },
+  ];
 
   const addToast = (variant, title, message) => {
     const newToast = { id: Date.now(), title, message, variant };
@@ -133,12 +152,19 @@ export function App() {
         {/* TOAST STREAMER FIXED OVERLAY */}
         <Toast toasts={toasts} onDismiss={dismissToast} position="topRight" />
 
+        {/* COMMAND PALETTE MODAL OVERLAY */}
+        <CommandPalette
+          isOpen={isPaletteOpen}
+          onClose={() => setIsPaletteOpen(false)}
+          commands={commandsList}
+        />
+
         {/* HEADER */}
         <Header>
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.6.0 Release</Badge>
+              <Badge variant="success">v2.7.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -171,11 +197,28 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: TOAST NOTIFICATION STREAMER (NEW v2.6.0) */}
+        {/* SECTION 2: COMMAND PALETTE (NEW v2.7.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.6.0</Badge>
+            <SectionTitle>2. Styled Search Filter Command Palette (`CommandPalette.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.7.0</Badge>
+          </SectionHeader>
+
+          <Row>
+            <Button
+              variant="primary"
+              onClick={() => setIsPaletteOpen(true)}
+            >
+              🔍 Open Command Palette (Press ⌘K or Ctrl+K)
+            </Button>
+          </Row>
+        </Section>
+
+        {/* SECTION 3: TOAST NOTIFICATIONS */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
+            <Badge variant="neutral">Notification System</Badge>
           </SectionHeader>
 
           <Row>
@@ -185,48 +228,6 @@ export function App() {
             >
               ✅ Trigger Success Toast
             </Button>
-
-            <Button
-              variant="secondary"
-              onClick={() => addToast('info', 'System Notice', 'New SDK release v3.4.0 is available.')}
-            >
-              ℹ️ Trigger Info Toast
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => addToast('warning', 'High Memory Threshold', 'Worker node Memory usage crossed 88%.')}
-            >
-              ⚠️ Trigger Warning Toast
-            </Button>
-
-            <Button
-              variant="danger"
-              onClick={() => addToast('danger', 'Critical Outage Alert', 'Connection lost to cluster sa-east-1.')}
-            >
-              🚨 Trigger Danger Toast
-            </Button>
-          </Row>
-        </Section>
-
-        {/* SECTION 3: POPOVER FLOATING PANEL */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>3. Styled Popover Floating Panel (`Popover.jsx`)</SectionTitle>
-            <Badge variant="neutral">Overlay System</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Popover
-              title="🔐 Secret API Key Vault"
-              position="bottomLeft"
-              trigger={<Button variant="outline">Popover Bottom Left</Button>}
-            >
-              <p style={{ marginBottom: '12px' }}>
-                Bearer tokens are encrypted with AES-256-GCM.
-              </p>
-              <Button size="sm" variant="primary">Rotate Secret Key</Button>
-            </Popover>
           </Row>
         </Section>
 
@@ -240,20 +241,6 @@ export function App() {
           <Row>
             <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>
               📂 Open Cluster Configuration Drawer
-            </Button>
-          </Row>
-        </Section>
-
-        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
-            <Badge variant="neutral">Overlay System</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              🪟 Open Accessible Modal Dialog
             </Button>
           </Row>
         </Section>

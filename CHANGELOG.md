@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-07-31
+
+### Added
+- Integrated **Styled Search Filter Command Palette Component (`CommandPalette.jsx`)**.
+- Added modal command palette with global `⌘K` keyboard shortcut trigger, real-time search query filtering, category groupings, shortcut badges, backdrop blur overlays, and keyboard `ESC` dismissal.
+
 ## [2.6.0] - 2026-07-31
 
 ### Added
 - Integrated **Styled Toast Notification Streamer Component (`Toast.jsx`)**.
-- Added floating toast notification overlay with contextual status variants (`info`, `success`, `warning`, `danger`), left accent borders, status icons (`ℹ️`, `✅`, `⚠️`, `🚨`), slide-in entrance animations (`slideInRight`, `slideInLeft`), position anchors, and dismiss triggers.
 
 ## [2.5.0] - 2026-07-31
 
