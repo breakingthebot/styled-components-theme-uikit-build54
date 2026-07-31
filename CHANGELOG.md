@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-07-31
+
+### Added
+- Integrated **Styled Segmented Control Switcher Component (`SegmentedControl.jsx`)**.
+- Added compact horizontal view switcher with active pill surface backgrounds, option icons, size props (`sm`, `md`, `lg`), and `fullWidth` mode.
+
 ## [2.3.0] - 2026-07-31
 
 ### Added
 - Integrated **Styled Data Table & Pagination Controls Component (`Table.jsx`)**.
-- Added sortable data table with striped rows, row hover highlights, custom cell renderers (status badge pills), and pagination navigation bar.
 
 ## [2.2.0] - 2026-07-31
 

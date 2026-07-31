@@ -26,6 +26,7 @@ import { Slider } from './components/Slider/Slider';
 import { Breadcrumb } from './components/Breadcrumb/Breadcrumb';
 import { Drawer } from './components/Drawer/Drawer';
 import { Table } from './components/Table/Table';
+import { SegmentedControl } from './components/SegmentedControl/SegmentedControl';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -108,34 +109,22 @@ export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
-  const [sliderVal, setSliderVal] = useState(65);
+  const [viewMode, setViewMode] = useState('grid');
+  const [timeframe, setTimeframe] = useState('7d');
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
-  const tableColumns = [
-    { key: 'id', label: 'Cluster ID', sortable: true },
-    { key: 'region', label: 'Region', sortable: true },
-    {
-      key: 'status',
-      label: 'Status',
-      sortable: true,
-      render: (val) => (
-        <Badge variant={val === 'Operational' ? 'success' : 'warning'} hasDot>
-          {val}
-        </Badge>
-      ),
-    },
-    { key: 'uptime', label: 'SLA Uptime', sortable: true },
-    { key: 'latency', label: 'Avg Latency', sortable: true },
+  const viewOptions = [
+    { value: 'grid', label: 'Grid View', icon: '🎛️' },
+    { value: 'list', label: 'List View', icon: '📋' },
+    { value: 'kanban', label: 'Kanban Board', icon: '📊' },
   ];
 
-  const tableData = [
-    { id: 'use1-a', region: 'us-east-1a (N. Virginia)', status: 'Operational', uptime: '99.99%', latency: '12ms' },
-    { id: 'use1-b', region: 'us-east-1b (N. Virginia)', status: 'Operational', uptime: '99.98%', latency: '14ms' },
-    { id: 'euw1-a', region: 'eu-west-1a (Ireland)', status: 'Operational', uptime: '99.95%', latency: '28ms' },
-    { id: 'euw1-b', region: 'eu-west-1b (Ireland)', status: 'Degraded', uptime: '98.50%', latency: '82ms' },
-    { id: 'aps1-a', region: 'ap-southeast-1a (Singapore)', status: 'Operational', uptime: '99.99%', latency: '42ms' },
-    { id: 'sae1-a', region: 'sa-east-1a (São Paulo)', status: 'Operational', uptime: '99.91%', latency: '64ms' },
+  const timeframeOptions = [
+    { value: '24h', label: '24 Hours' },
+    { value: '7d', label: '7 Days' },
+    { value: '30d', label: '30 Days' },
+    { value: '1y', label: '1 Year' },
   ];
 
   return (
@@ -147,7 +136,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.3.0 Release</Badge>
+              <Badge variant="success">v2.4.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -180,19 +169,39 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: DATA TABLE & PAGINATION (NEW v2.3.0) */}
+        {/* SECTION 2: SEGMENTED CONTROL SWITCHER (NEW v2.4.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Data Table &amp; Pagination (`Table.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.3.0</Badge>
+            <SectionTitle>2. Styled Segmented Control Switcher (`SegmentedControl.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.4.0</Badge>
           </SectionHeader>
 
-          <Card>
-            <Card.Header title="Cluster Telemetry Node Matrix" subtitle="Sortable headers &amp; page navigation controls" />
-            <Card.Body>
-              <Table columns={tableColumns} data={tableData} pageSize={4} />
-            </Card.Body>
-          </Card>
+          <Grid>
+            <Card>
+              <Card.Header title="View Mode Switcher" subtitle="Compact horizontal view switcher with icons" />
+              <Card.Body>
+                <SegmentedControl
+                  options={viewOptions}
+                  value={viewMode}
+                  onChange={setViewMode}
+                  fullWidth
+                />
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Telemetry Timeframe Filter" subtitle="Small size segmented control chips" />
+              <Card.Body>
+                <SegmentedControl
+                  options={timeframeOptions}
+                  value={timeframe}
+                  onChange={setTimeframe}
+                  size="sm"
+                  fullWidth
+                />
+              </Card.Body>
+            </Card>
+          </Grid>
         </Section>
 
         {/* SECTION 3: DRAWER PANEL */}
@@ -209,26 +218,18 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 4: SLIDER RANGE CONTROL */}
+        {/* SECTION 4: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
-            <Badge variant="neutral">Form Controls</Badge>
+            <SectionTitle>4. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
-          <Grid>
-            <Card>
-              <Card.Header title="System Resource Allocation" subtitle="Interactive slider range controls with dynamic fills" />
-              <Card.Body>
-                <Slider
-                  label="CPU Core Allocation Capacity"
-                  value={sliderVal}
-                  onChange={setSliderVal}
-                  unit="%"
-                />
-              </Card.Body>
-            </Card>
-          </Grid>
+          <Row>
+            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+              🪟 Open Accessible Modal Dialog
+            </Button>
+          </Row>
         </Section>
       </AppContainer>
 
@@ -256,13 +257,6 @@ export function App() {
             addon="https://"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-          />
-
-          <Slider
-            label="Worker Node Allocation"
-            value={sliderVal}
-            onChange={setSliderVal}
-            unit="%"
           />
         </div>
       </Drawer>
