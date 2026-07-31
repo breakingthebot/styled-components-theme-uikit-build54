@@ -30,6 +30,7 @@ import { SegmentedControl } from './components/SegmentedControl/SegmentedControl
 import { Popover } from './components/Popover/Popover';
 import { Toast } from './components/Toast/Toast';
 import { CommandPalette } from './components/CommandPalette/CommandPalette';
+import { Timeline } from './components/Timeline/Timeline';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -150,6 +151,12 @@ export function App() {
     { label: 'Telemetry Matrices' },
   ];
 
+  const timelineItems = [
+    { date: '15:28:40 UTC', title: 'Release v2.8.0 Deployed', description: 'Integrated Timeline Milestone Feed component into master UI kit.', variant: 'success', tag: 'v2.8.0' },
+    { date: '15:27:00 UTC', title: 'Release v2.7.0 Deployed', description: 'Command Palette with ⌘K shortcut listener live.', variant: 'info', tag: 'v2.7.0' },
+    { date: '15:26:00 UTC', title: 'Release v2.6.0 Deployed', description: 'Toast notification streamer overlay integrated.', variant: 'primary', tag: 'v2.6.0' },
+  ];
+
   const clusterOptions = [
     { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
     { value: 'eu-west-1', label: 'EU West (Ireland)', icon: '🇪🇺' },
@@ -229,8 +236,8 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.7.0 Master UI Kit</Badge>
-              <Badge variant="neutral">25 Components</Badge>
+              <Badge variant="success">v2.8.0 Master UI Kit</Badge>
+              <Badge variant="neutral">26 Components</Badge>
             </BadgeStrip>
 
             <Switch
@@ -242,7 +249,7 @@ export function App() {
 
           <Title>Styled Components UI Kit</Title>
           <Subtitle>
-            A production-grade, theme-able React UI library built with <strong>styled-components (CSS-in-JS)</strong>. Real-time Light/Dark theme switching, dynamic prop-based styling, and 100% scoped style encapsulation across 25 production-ready components.
+            A production-grade, theme-able React UI library built with <strong>styled-components (CSS-in-JS)</strong>. Real-time Light/Dark theme switching, dynamic prop-based styling, and 100% scoped style encapsulation across 26 production-ready components.
           </Subtitle>
 
           <Breadcrumb items={breadcrumbItems} separator="›" />
@@ -279,10 +286,25 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: TOAST NOTIFICATION STREAMER */}
+        {/* SECTION 2: TIMELINE MILESTONE FEED (NEW v2.8.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
+            <SectionTitle>2. Styled Timeline Milestone Feed (`Timeline.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.8.0</Badge>
+          </SectionHeader>
+
+          <Card>
+            <Card.Header title="Release Audit Activity Feed" subtitle="Vertical timeline track with glowing node dots" />
+            <Card.Body>
+              <Timeline items={timelineItems} />
+            </Card.Body>
+          </Card>
+        </Section>
+
+        {/* SECTION 3: TOAST NOTIFICATION STREAMER */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
             <Badge variant="neutral">Notification System</Badge>
           </SectionHeader>
 
@@ -302,10 +324,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 3: DATA TABLE & PAGINATION */}
+        {/* SECTION 4: DATA TABLE & PAGINATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Data Table &amp; Pagination (`Table.jsx`)</SectionTitle>
+            <SectionTitle>4. Data Table &amp; Pagination (`Table.jsx`)</SectionTitle>
             <Badge variant="neutral">Data Display</Badge>
           </SectionHeader>
 
@@ -317,10 +339,10 @@ export function App() {
           </Card>
         </Section>
 
-        {/* SECTION 4: FORM CONTROLS & RANGE SLIDER */}
+        {/* SECTION 5: FORM CONTROLS & RANGE SLIDER */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Form Inputs, Select, &amp; Range Sliders</SectionTitle>
+            <SectionTitle>5. Form Inputs, Select, &amp; Range Sliders</SectionTitle>
             <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
@@ -376,10 +398,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 5: NAVIGATION TABS & SEGMENTED CONTROL */}
+        {/* SECTION 6: NAVIGATION TABS & SEGMENTED CONTROL */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Navigation Tabs &amp; Segmented Control</SectionTitle>
+            <SectionTitle>6. Navigation Tabs &amp; Segmented Control</SectionTitle>
             <Badge variant="neutral">Navigation</Badge>
           </SectionHeader>
 
@@ -404,10 +426,10 @@ export function App() {
           </Card>
         </Section>
 
-        {/* SECTION 6: FEEDBACK & ACCORDION */}
+        {/* SECTION 7: FEEDBACK & ACCORDION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Progress, Skeleton, Avatars, &amp; Accordion</SectionTitle>
+            <SectionTitle>7. Progress, Skeleton, Avatars, &amp; Accordion</SectionTitle>
             <Badge variant="neutral">Feedback &amp; Disclosure</Badge>
           </SectionHeader>
 
