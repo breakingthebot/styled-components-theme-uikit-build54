@@ -28,6 +28,7 @@ import { Drawer } from './components/Drawer/Drawer';
 import { Table } from './components/Table/Table';
 import { SegmentedControl } from './components/SegmentedControl/SegmentedControl';
 import { Popover } from './components/Popover/Popover';
+import { Toast } from './components/Toast/Toast';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -110,20 +111,34 @@ export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
-  const [sliderVal, setSliderVal] = useState(65);
+  const [toasts, setToasts] = useState([
+    { id: 1, title: 'Cluster Deployment Succeeded', message: 'Region us-east-1 deployed with 100% health.', variant: 'success' },
+  ]);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
+  const addToast = (variant, title, message) => {
+    const newToast = { id: Date.now(), title, message, variant };
+    setToasts((prev) => [...prev, newToast]);
+  };
+
+  const dismissToast = (id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <AppContainer>
+        {/* TOAST STREAMER FIXED OVERLAY */}
+        <Toast toasts={toasts} onDismiss={dismissToast} position="topRight" />
+
         {/* HEADER */}
         <Header>
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.5.0 Release</Badge>
+              <Badge variant="success">v2.6.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -156,11 +171,49 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: POPOVER FLOATING PANEL (NEW v2.5.0) */}
+        {/* SECTION 2: TOAST NOTIFICATION STREAMER (NEW v2.6.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Popover Floating Panel (`Popover.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.5.0</Badge>
+            <SectionTitle>2. Styled Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.6.0</Badge>
+          </SectionHeader>
+
+          <Row>
+            <Button
+              variant="primary"
+              onClick={() => addToast('success', 'Backup Succeeded', 'Database snapshot created in 1.2s.')}
+            >
+              ✅ Trigger Success Toast
+            </Button>
+
+            <Button
+              variant="secondary"
+              onClick={() => addToast('info', 'System Notice', 'New SDK release v3.4.0 is available.')}
+            >
+              ℹ️ Trigger Info Toast
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => addToast('warning', 'High Memory Threshold', 'Worker node Memory usage crossed 88%.')}
+            >
+              ⚠️ Trigger Warning Toast
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={() => addToast('danger', 'Critical Outage Alert', 'Connection lost to cluster sa-east-1.')}
+            >
+              🚨 Trigger Danger Toast
+            </Button>
+          </Row>
+        </Section>
+
+        {/* SECTION 3: POPOVER FLOATING PANEL */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Popover Floating Panel (`Popover.jsx`)</SectionTitle>
+            <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
           <Row>
@@ -174,21 +227,13 @@ export function App() {
               </p>
               <Button size="sm" variant="primary">Rotate Secret Key</Button>
             </Popover>
-
-            <Popover
-              title="⚙️ Node Diagnostics"
-              position="bottomRight"
-              trigger={<Button variant="outline">Popover Bottom Right</Button>}
-            >
-              <p>Worker node ip-10-0-4-12 is operating at 12ms latency.</p>
-            </Popover>
           </Row>
         </Section>
 
-        {/* SECTION 3: DRAWER PANEL */}
+        {/* SECTION 4: DRAWER PANEL */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
@@ -199,10 +244,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 4: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
