@@ -13,6 +13,8 @@ import { Switch } from './components/Switch/Switch';
 import { Input } from './components/Input/Input';
 import { Modal } from './components/Modal/Modal';
 import { Tabs } from './components/Tabs/Tabs';
+import { Progress } from './components/Progress/Progress';
+import { Skeleton } from './components/Skeleton/Skeleton';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -90,10 +92,24 @@ const Grid = styled.div`
   gap: 24px;
 `;
 
+const SkeletonProfileRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const SkeletonTextCol = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
+
 export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
+  const [progressVal, setProgressVal] = useState(72);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const demoTabs = [
@@ -115,15 +131,6 @@ export function App() {
         <p>Active secret API keys and OAuth 2.0 bearer access scopes for dev environment.</p>
       ),
     },
-    {
-      id: 'tab3',
-      label: 'Telemetry Vault Logs',
-      icon: '📜',
-      badge: <Badge variant="neutral">1.8TB</Badge>,
-      content: (
-        <p>Telemetry data retention set to 90 days with automated NVMe vault synchronization.</p>
-      ),
-    },
   ];
 
   return (
@@ -135,7 +142,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.2.0 Release</Badge>
+              <Badge variant="success">v1.3.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -169,11 +176,60 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: TABS NAVIGATION (NEW v1.2.0) */}
+        {/* SECTION 2: PROGRESS & SKELETON (NEW v1.3.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.2.0</Badge>
+            <SectionTitle>2. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.3.0</Badge>
+          </SectionHeader>
+
+          <Grid>
+            {/* Progress Card */}
+            <Card>
+              <Card.Header
+                title="Progress Bar Indicators"
+                subtitle="Animated progress fills with theme tokens"
+                action={
+                  <Button size="sm" variant="outline" onClick={() => setProgressVal((p) => (p >= 100 ? 15 : p + 20))}>
+                    Simulate Load
+                  </Button>
+                }
+              />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Progress label="CPU Allocation Capacity" value={progressVal} showValue variant="gradient" animated />
+                  <Progress label="RAM Memory Load" value={84} showValue variant="warning" />
+                  <Progress label="NVMe Storage Capacity" value={45} showValue variant="brand" size="sm" />
+                </div>
+              </Card.Body>
+            </Card>
+
+            {/* Skeleton Loader Card */}
+            <Card>
+              <Card.Header title="Shimmer Skeleton Loader" subtitle="Theme-aware loading wave animation" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <SkeletonProfileRow>
+                    <Skeleton variant="circular" width={44} height={44} />
+                    <SkeletonTextCol>
+                      <Skeleton variant="text" width="60%" height={14} />
+                      <Skeleton variant="text" width="40%" height={10} />
+                    </SkeletonTextCol>
+                  </SkeletonProfileRow>
+
+                  <Skeleton variant="rectangular" height={80} />
+                  <Skeleton variant="text" count={2} />
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: TABS NAVIGATION */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <Badge variant="neutral">Navigation System</Badge>
           </SectionHeader>
 
           <Grid>
@@ -183,20 +239,13 @@ export function App() {
                 <Tabs tabs={demoTabs} variant="underline" />
               </Card.Body>
             </Card>
-
-            <Card>
-              <Card.Header title="Segmented Tabs Variant" subtitle="Surface track container switcher" />
-              <Card.Body>
-                <Tabs tabs={demoTabs} variant="segmented" defaultActiveId="tab2" />
-              </Card.Body>
-            </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 3: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 4: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
@@ -207,10 +256,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 4: THEME SWITCH SHOWCASE */}
+        {/* SECTION 5: THEME SWITCH SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Theme Switch Control (`Switch.jsx`)</SectionTitle>
+            <SectionTitle>5. Theme Switch Control (`Switch.jsx`)</SectionTitle>
             <Badge variant="neutral">Interactive Mode Toggle</Badge>
           </SectionHeader>
 
@@ -223,10 +272,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 5: CARD SHOWCASE */}
+        {/* SECTION 6: CARD SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Card Component (`Card.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Card Component (`Card.jsx`)</SectionTitle>
             <Badge variant="neutral">Surface Variants</Badge>
           </SectionHeader>
 
@@ -259,27 +308,13 @@ export function App() {
                 <Button size="sm" variant="outline">Configure</Button>
               </Card.Footer>
             </Card>
-
-            <Card variant="gradient">
-              <Card.Header
-                title="Gradient Glow Card"
-                subtitle="Theme primary gradient overlay"
-                action={<Badge variant="warning" hasDot isPulse>PREMIUM</Badge>}
-              />
-              <Card.Body>
-                Linear gradients consume theme brand tokens directly via CSS-in-JS interpolation functions.
-              </Card.Body>
-              <Card.Footer>
-                <Button size="sm" variant="danger">Revoke Access</Button>
-              </Card.Footer>
-            </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 6: BADGE SHOWCASE */}
+        {/* SECTION 7: BADGE SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
+            <SectionTitle>7. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
             <Badge variant="neutral">Status Colors</Badge>
           </SectionHeader>
 
@@ -290,29 +325,6 @@ export function App() {
             <Badge variant="info" hasDot isPulse>Info Stream</Badge>
             <Badge variant="neutral">Neutral Tag</Badge>
           </Row>
-        </Section>
-
-        {/* SECTION 7: INPUT CONTROL */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>7. Styled Input Component (`Input.jsx`)</SectionTitle>
-            <Badge variant="neutral">Form Fields</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header title="Form Control" subtitle="Input with addon &amp; focus rings" />
-              <Card.Body>
-                <Input
-                  label="Tenant Endpoint Slug"
-                  addon="https://"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="enter-tenant-name"
-                />
-              </Card.Body>
-            </Card>
-          </Grid>
         </Section>
       </AppContainer>
 
