@@ -23,6 +23,7 @@ import { Accordion } from './components/Accordion/Accordion';
 import { Select } from './components/Select/Select';
 import { Alert } from './components/Alert/Alert';
 import { Slider } from './components/Slider/Slider';
+import { Breadcrumb } from './components/Breadcrumb/Breadcrumb';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -105,11 +106,22 @@ export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const [selectedCluster, setSelectedCluster] = useState('us-east-1');
-  const [progressVal, setProgressVal] = useState(72);
   const [sliderVal, setSliderVal] = useState(65);
-  const [concurrencyVal, setConcurrencyVal] = useState(16);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
+  const breadcrumbItems1 = [
+    { label: 'Infrastructure', icon: '☁️', href: '#' },
+    { label: 'Cluster Regions', icon: '🌐', href: '#' },
+    { label: 'us-east-1', icon: '🇺🇸', href: '#' },
+    { label: 'Worker Node Pools', icon: '🖥️' },
+  ];
+
+  const breadcrumbItems2 = [
+    { label: 'Dashboard', href: '#' },
+    { label: 'Security & Access', href: '#' },
+    { label: 'OAuth 2.0 API Keys', href: '#' },
+  ];
 
   const clusterOptions = [
     { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
@@ -126,7 +138,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.0.0 Milestone Release</Badge>
+              <Badge variant="success">v2.1.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -169,94 +181,62 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: SLIDER RANGE CONTROL (NEW v2.0.0 MILESTONE) */}
+        {/* SECTION 2: BREADCRUMB NAVIGATION TRAIL (NEW v2.1.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>MILESTONE v2.0.0</Badge>
+            <SectionTitle>2. Styled Breadcrumb Navigation Trail (`Breadcrumb.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.1.0</Badge>
+          </SectionHeader>
+
+          <Grid>
+            <Card>
+              <Card.Header title="Icon Breadcrumb Path" subtitle="Hierarchical navigation path with icon badges" />
+              <Card.Body>
+                <Breadcrumb items={breadcrumbItems1} separator="›" />
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Slash Separator Path" subtitle="Accessible HTML5 nav with slash separators" />
+              <Card.Body>
+                <Breadcrumb items={breadcrumbItems2} separator="/" />
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: SLIDER RANGE CONTROL */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
+            <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
           <Grid>
             <Card>
               <Card.Header title="System Resource Allocation" subtitle="Interactive slider range controls with dynamic fills" />
               <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <Slider
-                    label="CPU Core Allocation Capacity"
-                    value={sliderVal}
-                    onChange={setSliderVal}
-                    unit="%"
-                  />
-
-                  <Slider
-                    label="Max Worker Thread Concurrency"
-                    value={concurrencyVal}
-                    onChange={setConcurrencyVal}
-                    min={1}
-                    max={64}
-                    unit=" Threads"
-                  />
-                </div>
-              </Card.Body>
-            </Card>
-
-            <Card>
-              <Card.Header title="Linked Feedback Binding" subtitle="Slider controls driving Progress indicator fills" />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Progress
-                    label="Active Cluster Load"
-                    value={sliderVal}
-                    showValue
-                    variant="gradient"
-                    animated
-                  />
-
-                  <Slider
-                    label="Drag to Adjust Cluster Load"
-                    value={sliderVal}
-                    onChange={setSliderVal}
-                    unit="%"
-                  />
-                </div>
+                <Slider
+                  label="CPU Core Allocation Capacity"
+                  value={sliderVal}
+                  onChange={setSliderVal}
+                  unit="%"
+                />
               </Card.Body>
             </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 3: ALERT CALLOUT BANNERS */}
+        {/* SECTION 4: ALERT CALLOUT BANNERS */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
             <Badge variant="neutral">Notification System</Badge>
           </SectionHeader>
 
           <Alert variant="info" title="System Maintenance Window Scheduled">
             Automated database index re-indexing scheduled for Saturday 02:00 UTC. Zero downtime expected.
           </Alert>
-        </Section>
-
-        {/* SECTION 4: DROPDOWN SELECT MENU */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>4. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
-            <Badge variant="neutral">Form Controls</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header title="Cluster Region Selector" subtitle="Custom select dropdown with flag icons &amp; checkmarks" />
-              <Card.Body>
-                <Select
-                  label="Target Primary Cluster"
-                  options={clusterOptions}
-                  value={selectedCluster}
-                  onChange={setSelectedCluster}
-                  placeholder="Choose deployment region"
-                />
-              </Card.Body>
-            </Card>
-          </Grid>
         </Section>
 
         {/* SECTION 5: MODAL DIALOG SHOWCASE */}

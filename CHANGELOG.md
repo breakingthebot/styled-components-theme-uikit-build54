@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-07-31
+
+### Added
+- Integrated **Styled Breadcrumb Navigation Trail Component (`Breadcrumb.jsx`)**.
+- Added hierarchical page navigation path with separator icons, active page highlighting (`aria-current="page"`), and accessible `<nav>` markup.
+
 ## [2.0.0] - 2026-07-31
 
 ### Added
 - **MILESTONE RELEASE v2.0.0**: Integrated **Styled Slider Range Control Component (`Slider.jsx`)**.
-- Added custom range input slider with dynamic gradient track percentage fills, hover thumb handles with focus halos, live value badges, custom units, and two-way progress state binding.
 
 ## [1.9.0] - 2026-07-31
 
