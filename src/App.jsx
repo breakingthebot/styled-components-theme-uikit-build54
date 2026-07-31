@@ -113,6 +113,13 @@ export function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
+  const [selectedCluster, setSelectedCluster] = useState('us-east-1');
+  const [progressVal, setProgressVal] = useState(75);
+  const [sliderVal, setSliderVal] = useState(65);
+  const [viewMode, setViewMode] = useState('grid');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [checkboxChecked, setCheckboxChecked] = useState(true);
+  const [toggleChecked, setToggleChecked] = useState(true);
   const [toasts, setToasts] = useState([]);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
@@ -134,6 +141,64 @@ export function App() {
     { id: 3, category: 'Navigation', label: 'Open Demo Modal Dialog', icon: '🪟', shortcut: '⌘M', action: () => setIsModalOpen(true) },
     { id: 4, category: 'Actions', label: 'Trigger Success Toast Notification', icon: '✅', action: () => addToast('success', 'Command Executed', 'Action executed via Command Palette.') },
     { id: 5, category: 'Actions', label: 'Rotate Cluster AES Secret Keys', icon: '🔑', action: () => addToast('warning', 'Security Alert', 'AES keys rotation initiated.') },
+  ];
+
+  const breadcrumbItems = [
+    { label: 'Infrastructure', icon: '☁️', href: '#' },
+    { label: 'Cluster Regions', icon: '🌐', href: '#' },
+    { label: 'us-east-1', icon: '🇺🇸', href: '#' },
+    { label: 'Telemetry Matrices' },
+  ];
+
+  const clusterOptions = [
+    { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
+    { value: 'eu-west-1', label: 'EU West (Ireland)', icon: '🇪🇺' },
+    { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)', icon: '🇸🇬' },
+  ];
+
+  const tabItems = [
+    { id: 'overview', label: 'Overview', icon: '📊' },
+    { id: 'nodes', label: 'Worker Nodes', icon: '🖥️', badge: 12 },
+    { id: 'settings', label: 'Cluster Settings', icon: '⚙️' },
+  ];
+
+  const accordionItems = [
+    { id: 1, title: 'What is styled-components?', content: 'styled-components is a CSS-in-JS library that lets you write actual CSS code to style your React components with scoped styles, props-based dynamic styling, and theme providers.' },
+    { id: 2, title: 'How does theme switching work?', content: 'Components consume design tokens passed through styled-components <ThemeProvider>. When theme state toggles, all styled components automatically re-render with updated colors.' },
+  ];
+
+  const tableColumns = [
+    { key: 'id', label: 'Node ID', sortable: true },
+    { key: 'region', label: 'Region', sortable: true },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      render: (val) => (
+        <Badge variant={val === 'Operational' ? 'success' : 'warning'} hasDot>
+          {val}
+        </Badge>
+      ),
+    },
+    { key: 'uptime', label: 'SLA Uptime', sortable: true },
+    { key: 'latency', label: 'Avg Latency', sortable: true },
+  ];
+
+  const tableData = [
+    { id: 'use1-a', region: 'us-east-1a (N. Virginia)', status: 'Operational', uptime: '99.99%', latency: '12ms' },
+    { id: 'use1-b', region: 'us-east-1b (N. Virginia)', status: 'Operational', uptime: '99.98%', latency: '14ms' },
+    { id: 'euw1-a', region: 'eu-west-1a (Ireland)', status: 'Operational', uptime: '99.95%', latency: '28ms' },
+    { id: 'euw1-b', region: 'eu-west-1b (Ireland)', status: 'Degraded', uptime: '98.50%', latency: '82ms' },
+    { id: 'aps1-a', region: 'ap-southeast-1a (Singapore)', status: 'Operational', uptime: '99.99%', latency: '42ms' },
+  ];
+
+  const avatarUsers = [
+    { name: 'Sarah Connor', status: 'online' },
+    { name: 'Alex Mercer', status: 'busy' },
+    { name: 'Elena Rostova', status: 'away' },
+    { name: 'Marcus Vance', status: 'offline' },
+    { name: 'David Kim' },
+    { name: 'Rachel Green' },
   ];
 
   const addToast = (variant, title, message) => {
@@ -164,8 +229,8 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.7.0 Release</Badge>
-              <Badge variant="neutral">Styled Components</Badge>
+              <Badge variant="success">v2.7.0 Master UI Kit</Badge>
+              <Badge variant="neutral">25 Components</Badge>
             </BadgeStrip>
 
             <Switch
@@ -177,72 +242,203 @@ export function App() {
 
           <Title>Styled Components UI Kit</Title>
           <Subtitle>
-            A production-grade, theme-able React UI library built with <strong>styled-components (CSS-in-JS)</strong>. Real-time Light/Dark theme switching, dynamic prop-based styling, and 100% scoped style encapsulation.
+            A production-grade, theme-able React UI library built with <strong>styled-components (CSS-in-JS)</strong>. Real-time Light/Dark theme switching, dynamic prop-based styling, and 100% scoped style encapsulation across 25 production-ready components.
           </Subtitle>
+
+          <Breadcrumb items={breadcrumbItems} separator="›" />
         </Header>
 
-        {/* SECTION 1: BUTTON SHOWCASE */}
+        {/* SECTION 1: SEARCH & OVERLAYS */}
         <Section>
           <SectionHeader>
-            <SectionTitle>1. Styled Button Component (`Button.jsx`)</SectionTitle>
-            <Badge variant="neutral">Dynamic Variants &amp; Sizes</Badge>
+            <SectionTitle>1. Command Palette &amp; Floating Overlays</SectionTitle>
+            <Badge variant="info" hasDot isPulse>Interactive Controls</Badge>
           </SectionHeader>
 
           <Row>
-            <Button variant="primary">Primary CTA</Button>
-            <Button variant="secondary">Secondary Button</Button>
-            <Button variant="danger">Danger Action</Button>
-            <Button variant="outline">Outline Button</Button>
-            <Button variant="ghost">Ghost Button</Button>
-          </Row>
-        </Section>
-
-        {/* SECTION 2: COMMAND PALETTE (NEW v2.7.0) */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>2. Styled Search Filter Command Palette (`CommandPalette.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.7.0</Badge>
-          </SectionHeader>
-
-          <Row>
-            <Button
-              variant="primary"
-              onClick={() => setIsPaletteOpen(true)}
-            >
-              🔍 Open Command Palette (Press ⌘K or Ctrl+K)
+            <Button variant="primary" onClick={() => setIsPaletteOpen(true)}>
+              🔍 Open Command Palette (⌘K)
             </Button>
+            <Button variant="secondary" onClick={() => setIsDrawerOpen(true)}>
+              📂 Open Configuration Drawer
+            </Button>
+            <Button variant="outline" onClick={() => setIsModalOpen(true)}>
+              🪟 Open Modal Dialog
+            </Button>
+
+            <Popover
+              title="🔐 Secret API Key Vault"
+              position="bottomLeft"
+              trigger={<Button variant="ghost">Popover Bottom Left</Button>}
+            >
+              <p style={{ marginBottom: '12px' }}>
+                Bearer tokens encrypted with AES-256-GCM.
+              </p>
+              <Button size="sm" variant="primary">Rotate Secret Key</Button>
+            </Popover>
           </Row>
         </Section>
 
-        {/* SECTION 3: TOAST NOTIFICATIONS */}
+        {/* SECTION 2: TOAST NOTIFICATION STREAMER */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
+            <SectionTitle>2. Toast Notification Streamer (`Toast.jsx`)</SectionTitle>
             <Badge variant="neutral">Notification System</Badge>
           </SectionHeader>
 
           <Row>
-            <Button
-              variant="primary"
-              onClick={() => addToast('success', 'Backup Succeeded', 'Database snapshot created in 1.2s.')}
-            >
-              ✅ Trigger Success Toast
+            <Button variant="primary" onClick={() => addToast('success', 'Backup Succeeded', 'Database snapshot created in 1.2s.')}>
+              ✅ Success Toast
+            </Button>
+            <Button variant="secondary" onClick={() => addToast('info', 'System Notice', 'SDK release v3.4.0 active.')}>
+              ℹ️ Info Toast
+            </Button>
+            <Button variant="outline" onClick={() => addToast('warning', 'Memory Alert', 'RAM usage crossed 88%.')}>
+              ⚠️ Warning Toast
+            </Button>
+            <Button variant="danger" onClick={() => addToast('danger', 'Outage Alert', 'Connection lost to sa-east-1.')}>
+              🚨 Danger Toast
             </Button>
           </Row>
         </Section>
 
-        {/* SECTION 4: DRAWER PANEL */}
+        {/* SECTION 3: DATA TABLE & PAGINATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
-            <Badge variant="neutral">Overlay System</Badge>
+            <SectionTitle>3. Data Table &amp; Pagination (`Table.jsx`)</SectionTitle>
+            <Badge variant="neutral">Data Display</Badge>
           </SectionHeader>
 
-          <Row>
-            <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>
-              📂 Open Cluster Configuration Drawer
-            </Button>
-          </Row>
+          <Card>
+            <Card.Header title="Cluster Telemetry Node Matrix" subtitle="Sortable column headers &amp; page navigation" />
+            <Card.Body>
+              <Table columns={tableColumns} data={tableData} pageSize={3} />
+            </Card.Body>
+          </Card>
+        </Section>
+
+        {/* SECTION 4: FORM CONTROLS & RANGE SLIDER */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>4. Form Inputs, Select, &amp; Range Sliders</SectionTitle>
+            <Badge variant="neutral">Form Controls</Badge>
+          </SectionHeader>
+
+          <Grid>
+            <Card>
+              <Card.Header title="Input &amp; Dropdown Select" subtitle="Text fields with addons and custom dropdowns" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Input
+                    label="Cluster Domain Endpoint"
+                    addon="https://"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                  />
+
+                  <Select
+                    label="Target Primary Cluster"
+                    options={clusterOptions}
+                    value={selectedCluster}
+                    onChange={setSelectedCluster}
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Range Slider &amp; Checkboxes" subtitle="Interactive sliders &amp; custom switches" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Slider
+                    label="CPU Allocation Capacity"
+                    value={sliderVal}
+                    onChange={setSliderVal}
+                    unit="%"
+                  />
+
+                  <div style={{ display: 'flex', gap: '20px', marginTop: '8px' }}>
+                    <Checkbox
+                      label="Auto-scale Nodes"
+                      checked={checkboxChecked}
+                      onChange={setCheckboxChecked}
+                    />
+
+                    <Toggle
+                      label="SLA Alerting"
+                      checked={toggleChecked}
+                      onChange={setToggleChecked}
+                    />
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 5: NAVIGATION TABS & SEGMENTED CONTROL */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>5. Navigation Tabs &amp; Segmented Control</SectionTitle>
+            <Badge variant="neutral">Navigation</Badge>
+          </SectionHeader>
+
+          <Card>
+            <Card.Header title="Cluster Workspace Tabs" subtitle="Underline tab bar with badges" />
+            <Card.Body>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <Tabs items={tabItems} activeTab={activeTab} onChange={setActiveTab} variant="underline" />
+
+                <SegmentedControl
+                  options={[
+                    { value: 'grid', label: 'Grid View', icon: '🎛️' },
+                    { value: 'list', label: 'List View', icon: '📋' },
+                    { value: 'kanban', label: 'Kanban Board', icon: '📊' },
+                  ]}
+                  value={viewMode}
+                  onChange={setViewMode}
+                  fullWidth
+                />
+              </div>
+            </Card.Body>
+          </Card>
+        </Section>
+
+        {/* SECTION 6: FEEDBACK & ACCORDION */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>6. Progress, Skeleton, Avatars, &amp; Accordion</SectionTitle>
+            <Badge variant="neutral">Feedback &amp; Disclosure</Badge>
+          </SectionHeader>
+
+          <Grid>
+            <Card>
+              <Card.Header title="Progress &amp; Avatars" subtitle="Animated gradient progress bar &amp; user avatar group" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <Progress label="Cluster Memory Load" value={sliderVal} showValue variant="gradient" animated />
+
+                  <div>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '8px' }}>Active Engineers</span>
+                    <AvatarGroup users={avatarUsers} max={4} size="md" />
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Accordion &amp; Callout Banners" subtitle="Disclosure panels &amp; alert banners" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Alert variant="info" title="System Maintenance Window">
+                    Database index re-indexing scheduled for Saturday 02:00 UTC.
+                  </Alert>
+
+                  <Accordion items={accordionItems} defaultExpandedId={1} />
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
         </Section>
       </AppContainer>
 
@@ -270,6 +466,13 @@ export function App() {
             addon="https://"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+          />
+
+          <Slider
+            label="Worker Node Allocation"
+            value={sliderVal}
+            onChange={setSliderVal}
+            unit="%"
           />
         </div>
       </Drawer>
