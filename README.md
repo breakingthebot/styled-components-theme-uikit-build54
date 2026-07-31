@@ -2,9 +2,9 @@
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel)](https://styled-components-theme-uikit-build54.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/breakingthebot/styled-components-theme-uikit-build54)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](file:///C:/Users/marve/Desktop/AI-286-Builds/Build_54/LICENSE)
-[![Styled Components](https://img.shields.io/badge/Styled--Components-CSS--in--JS-DB7093?style=for-the-badge&logo=styledcomponents)](file:///C:/Users/marve/Desktop/AI-286-Builds/Build_54/src/styles/theme.js)
-[![Release](https://img.shields.io/badge/Release-v1.9.0-indigo?style=for-the-badge)](file:///C:/Users/marve/Desktop/AI-286-Builds/Build_54/CHANGELOG.md)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Styled Components](https://img.shields.io/badge/Styled--Components-CSS--in--JS-DB7093?style=for-the-badge&logo=styledcomponents)](https://styled-components.com)
+[![Release](https://img.shields.io/badge/Release-v1.9.0-indigo?style=for-the-badge)](CHANGELOG.md)
 
 ---
 
@@ -17,7 +17,7 @@ Featuring 17 theme-aware components (`Button`, `Alert`, `Select`, `Accordion`, `
 ### 🌐 Live Production & Repository Links
 - **Live Vercel Application**: [https://styled-components-theme-uikit-build54.vercel.app](https://styled-components-theme-uikit-build54.vercel.app)
 - **GitHub Codebase**: [https://github.com/breakingthebot/styled-components-theme-uikit-build54](https://github.com/breakingthebot/styled-components-theme-uikit-build54)
-- **License**: [MIT License](file:///C:/Users/marve/Desktop/AI-286-Builds/Build_54/LICENSE)
+- **License**: [MIT License](LICENSE)
 
 ---
 
@@ -106,4 +106,4 @@ This component library operates 100% client-side in browser memory. No user inpu
 
 ## 📄 License
 
-Distributed under the MIT License. See [LICENSE](file:///C:/Users/marve/Desktop/AI-286-Builds/Build_54/LICENSE) for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
