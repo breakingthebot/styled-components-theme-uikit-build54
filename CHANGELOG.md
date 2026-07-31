@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2026-07-31
+
+### Added
+- Integrated **Styled Rating Star Input Component (`Rating.jsx`)**.
+- Added interactive star rating selector with hover preview states, read-only mode, gold fill styling (`theme.colors.warning`), size props (`sm`, `md`, `lg`), max star counts, and accessible button elements.
+
 ## [2.8.0] - 2026-07-31
 
 ### Added
 - Integrated **Styled Timeline Milestone Feed Component (`Timeline.jsx`)**.
-- Added vertical version release history timeline with glowing node dots, variant colors (`info`, `success`, `warning`, `primary`), date timestamps, title headers, and status tag badges.
 
 ## [2.7.0] - 2026-07-31
 
