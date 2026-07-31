@@ -20,6 +20,7 @@ import { Checkbox } from './components/Checkbox/Checkbox';
 import { Toggle } from './components/Toggle/Toggle';
 import { Tooltip } from './components/Tooltip/Tooltip';
 import { Accordion } from './components/Accordion/Accordion';
+import { Select } from './components/Select/Select';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -101,6 +102,7 @@ export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
+  const [selectedCluster, setSelectedCluster] = useState('us-east-1');
   const [progressVal, setProgressVal] = useState(72);
   const [check1, setCheck1] = useState(true);
   const [check2, setCheck2] = useState(false);
@@ -108,6 +110,13 @@ export function App() {
   const [toggle2, setToggle2] = useState(false);
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
+  const clusterOptions = [
+    { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
+    { value: 'eu-west-1', label: 'EU West (Ireland)', icon: '🇪🇺' },
+    { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)', icon: '🇸🇬' },
+    { value: 'sa-east-1', label: 'South America (São Paulo)', icon: '🇧🇷', disabled: true },
+  ];
 
   const faqItems = [
     {
@@ -119,11 +128,6 @@ export function App() {
       title: 'Is CSS-in-JS zero-runtime compatible with Next.js App Router?',
       icon: '⚡',
       content: 'Styled Components 6+ supports SSR registry streaming for Next.js App Router, extracting CSS rules server-side before flushing HTML to the browser client.',
-    },
-    {
-      title: 'How are global scope style collisions avoided in Styled Components?',
-      icon: '🛡️',
-      content: 'Styled Components generates unique hash prefixes (e.g. sc-bczRLJ) for every component class name, guaranteeing 100% style isolation across large modular frontend architectures.',
     },
   ];
 
@@ -157,7 +161,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.7.0 Release</Badge>
+              <Badge variant="success">v1.8.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -200,20 +204,63 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: ACCORDION FAQ (NEW v1.7.0) */}
+        {/* SECTION 2: DROPDOWN SELECT MENU (NEW v1.8.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Accordion FAQ Component (`Accordion.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.7.0</Badge>
+            <SectionTitle>2. Styled Dropdown Select Menu (`Select.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.8.0</Badge>
+          </SectionHeader>
+
+          <Grid>
+            <Card>
+              <Card.Header title="Cluster Region Selector" subtitle="Custom select dropdown with flag icons &amp; checkmarks" />
+              <Card.Body>
+                <Select
+                  label="Target Primary Cluster"
+                  options={clusterOptions}
+                  value={selectedCluster}
+                  onChange={setSelectedCluster}
+                  placeholder="Choose deployment region"
+                />
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Header title="Form Control Group" subtitle="Combined input &amp; region dropdown" />
+              <Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <Input
+                    label="Endpoint Hostname"
+                    addon="https://"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                  />
+                  <Select
+                    label="Active Replica"
+                    options={clusterOptions}
+                    value={selectedCluster}
+                    onChange={setSelectedCluster}
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: ACCORDION FAQ */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Accordion FAQ Component (`Accordion.jsx`)</SectionTitle>
+            <Badge variant="neutral">Disclosure Panels</Badge>
           </SectionHeader>
 
           <Accordion items={faqItems} />
         </Section>
 
-        {/* SECTION 3: TOOLTIP HOVER POPUP */}
+        {/* SECTION 4: TOOLTIP HOVER POPUP */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Tooltip Hover Popup (`Tooltip.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
@@ -225,26 +272,17 @@ export function App() {
             <Tooltip content="Bottom positioned directional tooltip" position="bottom">
               <Button variant="outline">Hover Bottom</Button>
             </Tooltip>
-
-            <Tooltip content="Left positioned directional tooltip" position="left">
-              <Button variant="outline">Hover Left</Button>
-            </Tooltip>
-
-            <Tooltip content="Right positioned directional tooltip" position="right">
-              <Button variant="outline">Hover Right</Button>
-            </Tooltip>
           </Row>
         </Section>
 
-        {/* SECTION 4: CHECKBOX & TOGGLE CONTROLS */}
+        {/* SECTION 5: CHECKBOX & TOGGLE CONTROLS */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Checkbox &amp; Toggle Switch (`Checkbox.jsx`, `Toggle.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
           <Grid>
-            {/* Checkbox Group */}
             <Card>
               <Card.Header title="Styled Checkbox Group" subtitle="Custom checkmarks with active theme fills" />
               <Card.Body>
@@ -263,7 +301,6 @@ export function App() {
               </Card.Body>
             </Card>
 
-            {/* Toggle Switches */}
             <Card>
               <Card.Header title="Styled Toggle Switches" subtitle="Sliding track switches with label descriptions" />
               <Card.Body>
@@ -274,115 +311,16 @@ export function App() {
                     checked={toggle1}
                     onChange={setToggle1}
                   />
-
-                  <Toggle
-                    label="Slack Fatal Crash Alerts"
-                    description="Stream fatal 500 error stack traces to #ops-alerts"
-                    checked={toggle2}
-                    onChange={setToggle2}
-                  />
                 </div>
               </Card.Body>
             </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 5: AVATAR & AVATAR GROUP */}
+        {/* SECTION 6: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
-            <Badge variant="neutral">User Profiles</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header title="User Avatar Badges" subtitle="Initials fallbacks and status indicator rings" />
-              <Card.Body>
-                <Row>
-                  <Tooltip content="Jane Doe (Online)" position="top">
-                    <Avatar name="Jane Doe" size="lg" status="online" />
-                  </Tooltip>
-                  <Tooltip content="Alex Smith (Busy)" position="top">
-                    <Avatar name="Alex Smith" size="lg" status="busy" />
-                  </Tooltip>
-                </Row>
-              </Card.Body>
-            </Card>
-
-            <Card>
-              <Card.Header title="Stacked Avatar Group" subtitle="Overlapping team stack with +N counter" />
-              <Card.Body>
-                <AvatarGroup max={4} size="lg">
-                  <Avatar name="Jane Doe" status="online" />
-                  <Avatar name="Alex Smith" status="busy" />
-                  <Avatar name="Charlie Brown" status="away" />
-                  <Avatar name="David Lee" status="offline" />
-                  <Avatar name="Eva Martinez" />
-                </AvatarGroup>
-              </Card.Body>
-            </Card>
-          </Grid>
-        </Section>
-
-        {/* SECTION 6: PROGRESS & SKELETON */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>6. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
-            <Badge variant="neutral">Feedback System</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header
-                title="Progress Bar Indicators"
-                subtitle="Animated progress fills with theme tokens"
-                action={
-                  <Button size="sm" variant="outline" onClick={() => setProgressVal((p) => (p >= 100 ? 15 : p + 20))}>
-                    Simulate Load
-                  </Button>
-                }
-              />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Progress label="CPU Allocation Capacity" value={progressVal} showValue variant="gradient" animated />
-                  <Progress label="RAM Memory Load" value={84} showValue variant="warning" />
-                </div>
-              </Card.Body>
-            </Card>
-
-            <Card>
-              <Card.Header title="Shimmer Skeleton Loader" subtitle="Theme-aware loading wave animation" />
-              <Card.Body>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Skeleton variant="rectangular" height={80} />
-                  <Skeleton variant="text" count={2} />
-                </div>
-              </Card.Body>
-            </Card>
-          </Grid>
-        </Section>
-
-        {/* SECTION 7: TABS NAVIGATION */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>7. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
-            <Badge variant="neutral">Navigation System</Badge>
-          </SectionHeader>
-
-          <Grid>
-            <Card>
-              <Card.Header title="Underline Tabs Variant" subtitle="Default border indicator with badges" />
-              <Card.Body>
-                <Tabs tabs={demoTabs} variant="underline" />
-              </Card.Body>
-            </Card>
-          </Grid>
-        </Section>
-
-        {/* SECTION 8: MODAL DIALOG SHOWCASE */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>8. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>6. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 

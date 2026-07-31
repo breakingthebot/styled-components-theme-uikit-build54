@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-07-31
+
+### Added
+- Integrated **Styled Dropdown Select Menu Component (`Select.jsx`)**.
+- Added custom select dropdown with item icons, selected checkmark indicators (`✓`), disabled states, click-outside dismissal, and rotating chevron animations (`rotate(180deg)`).
+
 ## [1.7.0] - 2026-07-30
 
 ### Added
 - Integrated **Styled Accordion FAQ Component (`Accordion.jsx`)**.
-- Added expandable disclosure FAQ panels with CSS grid height transitions, rotating chevron indicators (`rotate(180deg)`), and multi-expand support.
 
 ## [1.6.0] - 2026-07-30
 
