@@ -5,11 +5,16 @@ All notable changes to **Build 54 (Styled Components Theme-able UI Kit)** will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-07-30
+
+### Added
+- Integrated **Styled Avatar & Avatar Group Component (`Avatar.jsx`)**.
+- Added user avatar badges with initials fallbacks, size options (`xs` to `xl`), status indicator rings (`online`, `busy`, `away`, `offline`), and stacked avatar groups with overflow counters (`+N`).
+
 ## [1.3.0] - 2026-07-30
 
 ### Added
 - Integrated **Styled Progress Bar & Skeleton Loader Component (`Progress.jsx`, `Skeleton.jsx`)**.
-- Added linear progress indicators with gradient fills, percentage text labels, and shimmer wave keyframe loading animations.
 
 ## [1.2.0] - 2026-07-30
 

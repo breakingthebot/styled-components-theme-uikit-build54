@@ -15,6 +15,7 @@ import { Modal } from './components/Modal/Modal';
 import { Tabs } from './components/Tabs/Tabs';
 import { Progress } from './components/Progress/Progress';
 import { Skeleton } from './components/Skeleton/Skeleton';
+import { Avatar, AvatarGroup } from './components/Avatar/Avatar';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -82,7 +83,7 @@ const SectionTitle = styled.h2`
 const Row = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
 `;
 
@@ -142,7 +143,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v1.3.0 Release</Badge>
+              <Badge variant="success">v1.4.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -176,11 +177,49 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 2: PROGRESS & SKELETON (NEW v1.3.0) */}
+        {/* SECTION 2: AVATAR & AVATAR GROUP (NEW v1.4.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v1.3.0</Badge>
+            <SectionTitle>2. Styled Avatar &amp; Avatar Group Component (`Avatar.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v1.4.0</Badge>
+          </SectionHeader>
+
+          <Grid>
+            {/* Status Avatars */}
+            <Card>
+              <Card.Header title="User Avatar Badges" subtitle="Initials fallbacks and status indicator rings" />
+              <Card.Body>
+                <Row>
+                  <Avatar name="Jane Doe" size="lg" status="online" />
+                  <Avatar name="Alex Smith" size="lg" status="busy" />
+                  <Avatar name="Charlie Brown" size="lg" status="away" />
+                  <Avatar name="David Lee" size="lg" status="offline" />
+                </Row>
+              </Card.Body>
+            </Card>
+
+            {/* Avatar Group Stack */}
+            <Card>
+              <Card.Header title="Stacked Avatar Group" subtitle="Overlapping team stack with +N counter" />
+              <Card.Body>
+                <AvatarGroup max={4} size="lg">
+                  <Avatar name="Jane Doe" status="online" />
+                  <Avatar name="Alex Smith" status="busy" />
+                  <Avatar name="Charlie Brown" status="away" />
+                  <Avatar name="David Lee" status="offline" />
+                  <Avatar name="Eva Martinez" />
+                  <Avatar name="Frank Miller" />
+                </AvatarGroup>
+              </Card.Body>
+            </Card>
+          </Grid>
+        </Section>
+
+        {/* SECTION 3: PROGRESS & SKELETON */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>3. Styled Progress Bar &amp; Skeleton Loader (`Progress.jsx`, `Skeleton.jsx`)</SectionTitle>
+            <Badge variant="neutral">Feedback System</Badge>
           </SectionHeader>
 
           <Grid>
@@ -225,10 +264,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 3: TABS NAVIGATION */}
+        {/* SECTION 4: TABS NAVIGATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
+            <SectionTitle>4. Styled Tabs Navigation Bar (`Tabs.jsx`)</SectionTitle>
             <Badge variant="neutral">Navigation System</Badge>
           </SectionHeader>
 
@@ -242,10 +281,10 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 4: MODAL DIALOG SHOWCASE */}
+        {/* SECTION 5: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>4. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
+            <SectionTitle>5. Styled Modal Overlay Component (`Modal.jsx`)</SectionTitle>
             <Badge variant="neutral">Overlay System</Badge>
           </SectionHeader>
 
@@ -256,10 +295,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 5: THEME SWITCH SHOWCASE */}
+        {/* SECTION 6: THEME SWITCH SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>5. Theme Switch Control (`Switch.jsx`)</SectionTitle>
+            <SectionTitle>6. Theme Switch Control (`Switch.jsx`)</SectionTitle>
             <Badge variant="neutral">Interactive Mode Toggle</Badge>
           </SectionHeader>
 
@@ -272,10 +311,10 @@ export function App() {
           </Row>
         </Section>
 
-        {/* SECTION 6: CARD SHOWCASE */}
+        {/* SECTION 7: CARD SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>6. Styled Card Component (`Card.jsx`)</SectionTitle>
+            <SectionTitle>7. Styled Card Component (`Card.jsx`)</SectionTitle>
             <Badge variant="neutral">Surface Variants</Badge>
           </SectionHeader>
 
@@ -294,27 +333,13 @@ export function App() {
                 <Button size="sm" variant="primary" onClick={() => setIsModalOpen(true)}>Inspect Modal</Button>
               </Card.Footer>
             </Card>
-
-            <Card variant="glass">
-              <Card.Header
-                title="Glassmorphism Card"
-                subtitle="Frosted acrylic backdrop blur"
-                action={<Badge variant="info">BLUR FX</Badge>}
-              />
-              <Card.Body>
-                Glass cards compute backdrop blur dynamically based on active Light or Dark theme surface opacity.
-              </Card.Body>
-              <Card.Footer>
-                <Button size="sm" variant="outline">Configure</Button>
-              </Card.Footer>
-            </Card>
           </Grid>
         </Section>
 
-        {/* SECTION 7: BADGE SHOWCASE */}
+        {/* SECTION 8: BADGE SHOWCASE */}
         <Section>
           <SectionHeader>
-            <SectionTitle>7. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
+            <SectionTitle>8. Styled Badge Pills (`Badge.jsx`)</SectionTitle>
             <Badge variant="neutral">Status Colors</Badge>
           </SectionHeader>
 
