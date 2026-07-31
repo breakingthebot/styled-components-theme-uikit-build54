@@ -24,6 +24,7 @@ import { Select } from './components/Select/Select';
 import { Alert } from './components/Alert/Alert';
 import { Slider } from './components/Slider/Slider';
 import { Breadcrumb } from './components/Breadcrumb/Breadcrumb';
+import { Drawer } from './components/Drawer/Drawer';
 
 const AppContainer = styled.div`
   max-width: 1100px;
@@ -104,6 +105,7 @@ const Grid = styled.div`
 export function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputValue, setInputValue] = useState('acme-corp-prod');
   const [selectedCluster, setSelectedCluster] = useState('us-east-1');
   const [sliderVal, setSliderVal] = useState(65);
@@ -114,19 +116,6 @@ export function App() {
     { label: 'Infrastructure', icon: '☁️', href: '#' },
     { label: 'Cluster Regions', icon: '🌐', href: '#' },
     { label: 'us-east-1', icon: '🇺🇸', href: '#' },
-    { label: 'Worker Node Pools', icon: '🖥️' },
-  ];
-
-  const breadcrumbItems2 = [
-    { label: 'Dashboard', href: '#' },
-    { label: 'Security & Access', href: '#' },
-    { label: 'OAuth 2.0 API Keys', href: '#' },
-  ];
-
-  const clusterOptions = [
-    { value: 'us-east-1', label: 'US East (N. Virginia)', icon: '🇺🇸' },
-    { value: 'eu-west-1', label: 'EU West (Ireland)', icon: '🇪🇺' },
-    { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)', icon: '🇸🇬' },
   ];
 
   return (
@@ -138,7 +127,7 @@ export function App() {
           <HeaderTop>
             <BadgeStrip>
               <Badge variant="info" hasDot isPulse>CSS-in-JS Architecture</Badge>
-              <Badge variant="success">v2.1.0 Release</Badge>
+              <Badge variant="success">v2.2.0 Release</Badge>
               <Badge variant="neutral">Styled Components</Badge>
             </BadgeStrip>
 
@@ -177,38 +166,42 @@ export function App() {
 
             <Button variant="outline">Outline Button</Button>
             <Button variant="ghost">Ghost Button</Button>
-            <Button variant="primary" isLoading>Loading State</Button>
           </Row>
         </Section>
 
-        {/* SECTION 2: BREADCRUMB NAVIGATION TRAIL (NEW v2.1.0) */}
+        {/* SECTION 2: DRAWER PANEL (NEW v2.2.0) */}
         <Section>
           <SectionHeader>
-            <SectionTitle>2. Styled Breadcrumb Navigation Trail (`Breadcrumb.jsx`)</SectionTitle>
-            <Badge variant="info" hasDot isPulse>NEW v2.1.0</Badge>
+            <SectionTitle>2. Styled Slide-Over Drawer Panel (`Drawer.jsx`)</SectionTitle>
+            <Badge variant="info" hasDot isPulse>NEW v2.2.0</Badge>
           </SectionHeader>
 
-          <Grid>
-            <Card>
-              <Card.Header title="Icon Breadcrumb Path" subtitle="Hierarchical navigation path with icon badges" />
-              <Card.Body>
-                <Breadcrumb items={breadcrumbItems1} separator="›" />
-              </Card.Body>
-            </Card>
-
-            <Card>
-              <Card.Header title="Slash Separator Path" subtitle="Accessible HTML5 nav with slash separators" />
-              <Card.Body>
-                <Breadcrumb items={breadcrumbItems2} separator="/" />
-              </Card.Body>
-            </Card>
-          </Grid>
+          <Row>
+            <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>
+              📂 Open Cluster Configuration Drawer
+            </Button>
+          </Row>
         </Section>
 
-        {/* SECTION 3: SLIDER RANGE CONTROL */}
+        {/* SECTION 3: BREADCRUMB NAVIGATION */}
         <Section>
           <SectionHeader>
-            <SectionTitle>3. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
+            <SectionTitle>3. Styled Breadcrumb Navigation Trail (`Breadcrumb.jsx`)</SectionTitle>
+            <Badge variant="neutral">Navigation System</Badge>
+          </SectionHeader>
+
+          <Card>
+            <Card.Header title="Icon Breadcrumb Path" subtitle="Hierarchical navigation path with icon badges" />
+            <Card.Body>
+              <Breadcrumb items={breadcrumbItems1} separator="›" />
+            </Card.Body>
+          </Card>
+        </Section>
+
+        {/* SECTION 4: SLIDER RANGE CONTROL */}
+        <Section>
+          <SectionHeader>
+            <SectionTitle>4. Styled Slider Range Control (`Slider.jsx`)</SectionTitle>
             <Badge variant="neutral">Form Controls</Badge>
           </SectionHeader>
 
@@ -227,18 +220,6 @@ export function App() {
           </Grid>
         </Section>
 
-        {/* SECTION 4: ALERT CALLOUT BANNERS */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>4. Styled Alert Callout Banner (`Alert.jsx`)</SectionTitle>
-            <Badge variant="neutral">Notification System</Badge>
-          </SectionHeader>
-
-          <Alert variant="info" title="System Maintenance Window Scheduled">
-            Automated database index re-indexing scheduled for Saturday 02:00 UTC. Zero downtime expected.
-          </Alert>
-        </Section>
-
         {/* SECTION 5: MODAL DIALOG SHOWCASE */}
         <Section>
           <SectionHeader>
@@ -253,6 +234,41 @@ export function App() {
           </Row>
         </Section>
       </AppContainer>
+
+      {/* DEMO SLIDE-OVER DRAWER */}
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        title="⚙️ Cluster Configuration Drawer"
+        position="right"
+        size="md"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setIsDrawerOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setIsDrawerOpen(false)}>Apply Configuration</Button>
+          </>
+        }
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <Alert variant="info" title="Active Environment">
+            Modifying settings for primary region <strong>us-east-1</strong>.
+          </Alert>
+
+          <Input
+            label="Cluster Domain Endpoint"
+            addon="https://"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+
+          <Slider
+            label="Worker Node Allocation"
+            value={sliderVal}
+            onChange={setSliderVal}
+            unit="%"
+          />
+        </div>
+      </Drawer>
 
       {/* DEMO MODAL DIALOG */}
       <Modal
